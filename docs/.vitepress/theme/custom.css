@@ -1,0 +1,26 @@
+/* Color Base */
+:root {
+  --vp-c-purple: #588157;
+  --vp-c-purple-light: #a3b18a;
+  --vp-c-purple-lighter: #e9edc9;
+  --vp-c-purple-dark: #344e41;
+  --vp-c-purple-darker: #3a5a40;
+  
+  /* 设置字体颜色 */
+  /* --vp-home-hero-name-color: transparent; */
+  /* --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #bd34fe, #41d1ff); */
+  
+  /* 设置右图像渐变 */
+  --vp-home-hero-image-background-image: linear-gradient( -45deg, #588157 50%, #ffffff 50% );
+  --vp-home-hero-image-filter: blur(150px);
+
+}
+
+/* Color Theme */
+:root {
+  --vp-c-brand: var(--vp-c-purple);
+  --vp-c-brand-light: var(--vp-c-purple-light);
+  --vp-c-brand-lighter: var(--vp-c-purple-lighter);
+  --vp-c-brand-dark: var(--vp-c-purple-dark);
+  --vp-c-brand-darker: var(--vp-c-purple-darker);
+}
