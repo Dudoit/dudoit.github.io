@@ -24,18 +24,35 @@ export const nav: DefaultTheme.NavItem[] = [
     ]
   },
   {
-    text: '个人成长',
+    text: '开发手册',
     items: [
       {
-        text: '大江南北游记',
-        link: '/column/Travel/' // 表示docs/column/Travel/index.md
+        text: '浏览器',
+        link: '/develop/Browser/'
       },
       {
-        text: '所思·所想',
-        link: '/column/Growing/' // 表示docs/column/Growing/index.md
-      }
+        text: '开发优化',
+        link: '/develop/Performance/'
+      },
+      {
+        text: '算法',
+        link: '/develop/Algorithm/'
+      },
     ]
   },
+  // {
+  //   text: '个人成长',
+  //   items: [
+  //     {
+  //       text: '大江南北游记',
+  //       link: '/column/Travel/' // 表示docs/column/Travel/index.md
+  //     },
+  //     {
+  //       text: '所思·所想',
+  //       link: '/column/Growing/' // 表示docs/column/Growing/index.md
+  //     }
+  //   ]
+  // },
   {
     text: '关于我',
     items: [

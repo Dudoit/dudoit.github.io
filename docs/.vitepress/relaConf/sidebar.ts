@@ -9,8 +9,12 @@ export const sidebar: DefaultTheme.Sidebar = {
           link: '/knowledge/Webpack+Vite/Webpack'
         },
         {
-          text: 'Webpack',
-          link: '/knowledge/Webpack+Vite/Webpack'
+          text: '常见的 loader 配置',
+          link: '/knowledge/Webpack+Vite/Webpack/loader'
+        },
+        {
+          text: '常见的 plugin 配置',
+          link: '/knowledge/Webpack+Vite/Webpack/plugin'
         },
       ]
     },
@@ -27,5 +31,47 @@ export const sidebar: DefaultTheme.Sidebar = {
         }
       ]
     }
+  ],
+  '/knowledge/Develop/': [
+    {
+      text: 'Webpack',
+      items: [
+        {
+          text: 'Webpack',
+          link: '/knowledge/Webpack+Vite/Webpack'
+        },
+        {
+          text: 'Webpack',
+          link: '/knowledge/Webpack+Vite/Webpack'
+        },
+      ]
+    },
+  ],
+
+  '/develop/Browser/': [
+    {
+      text: '浏览器',
+      items: [
+        {
+          text: 'Webpack',
+          link: '/knowledge/Webpack+Vite/Webpack'
+        },
+      ]
+    },
+  ],
+  '/develop/Performance/': [
+    {
+      text: '前端性能优化',
+      items: [
+        {
+          text: '网络篇',
+          link: '/develop/Performance/network'
+        },
+        {
+          text: '图片',
+          link: '/develop/Performance/image'
+        },
+      ]
+    },
   ]
 };
