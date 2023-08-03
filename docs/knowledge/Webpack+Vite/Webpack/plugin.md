@@ -102,3 +102,54 @@ pglobOptions：设置一些额外的选项，其中可以编写需要忽略的�
   .DS_Store：mac目录下回自动生成的一个文件；
   index.html：也不需要复制，因为我们已经通过HtmlWebpackPlugin完成了index.html的生成；
 ```
+
+## CommonsChunkPlugin
+
+用于避免 chunks 之间的重复依赖
+
+::: warning
+从 webpack4 开始，CommonsChunkPlugin 已被 SplitChunksPlugin 取代
+:::
+
+## SplitChunksPlugin
+
+SplitChunksPlugin 开箱即用，分离公共的第三方模块以及业务代码
+
+默认配置：
+
+```JavaScript
+module.exports = {
+  //...
+  optimization: {
+    splitChunks: {
+      chunks: 'async',
+      minSize: 20000,
+      minRemainingSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 30,
+      maxInitialRequests: 30,
+      enforceSizeThreshold: 50000,
+      cacheGroups: {
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          reuseExistingChunk: true,
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+        },
+      },
+    },
+  },
+};
+```
+
+## DllPlugin
+
+CommonsChunkPlugin 每次构建时都会重新构建一次 vendor；出于对效率的考虑，我们更多是使用 DllPlugin
+
+作用和 optimization.splitChunk 的作用相似，都是用某种方法拆分 bundles，可以大幅度提升构建速度
+
+这个插件会把第三方库单独打包到一个文件中，这个文件就是一个单纯的依赖库。这个依赖库不会跟着你的业务代码一起被重新打包，只有当依赖自身发生版本变化时才会重新打包。

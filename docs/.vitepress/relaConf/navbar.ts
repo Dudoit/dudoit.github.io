@@ -11,11 +11,11 @@ export const nav: DefaultTheme.NavItem[] = [
       },
       {
         text: 'JavaScript+ES6',
-        link: '/knowledge/JavaScript+ES6/'
+        link: '/knowledge/JavaScript+ES6/JavaScript/'
       },
       {
         text: 'Vue',
-        link: '/knowledge/Vue/'
+        link: '/knowledge/Vue/Vue3/'
       },
       {
         text: 'Webpack+Vite',
@@ -27,16 +27,16 @@ export const nav: DefaultTheme.NavItem[] = [
     text: '开发手册',
     items: [
       {
-        text: '浏览器',
-        link: '/develop/Browser/'
+        text: '浏览器+网络',
+        link: '/develop/Browser+Network/Browser/'
       },
       {
         text: '开发优化',
         link: '/develop/Performance/'
       },
       {
-        text: '算法',
-        link: '/develop/Algorithm/'
+        text: '业务场景+算法',
+        link: '/develop/Work+Algorithm/Work/'
       },
     ]
   },

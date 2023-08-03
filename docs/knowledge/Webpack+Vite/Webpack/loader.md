@@ -6,7 +6,7 @@ loader 用于对模块源代码的转换
 
 解析和压缩 `.css` 文件
 
-```
+```Bash
 npm install css-loader -D
 ```
 
@@ -14,11 +14,11 @@ npm install css-loader -D
 
 将解析后的 CSS 插入到 DOM 中
 
-```
+```Bash
 npm install style-loader -D
 ```
 
-```javascript
+```JavaScript
 module.exports = {
   module: {
     rules: [
@@ -36,7 +36,7 @@ module.exports = {
 
 使支持开发中的 Less 预处理器，使 less 自动转换为 css
 
-```
+```Bash
 npm install less-loader -D
 ```
 
@@ -44,7 +44,7 @@ npm install less-loader -D
 
 使支持开发中的 Less 预处理器，使 less 自动转换为 css
 
-```
+```Bash
 npm install less-loader -D
 ```
 
@@ -52,7 +52,7 @@ npm install less-loader -D
 
 PostCSS 是一个通过 JavaScript 来转换样式的工具，它可以实现一些 CSS 的转换和适配，比如自动添加浏览器前缀、css 样式重置。
 
-```
+```Bash
 npm install postcss-loader -D
 ```
 
@@ -77,7 +77,7 @@ module.exports = {
 file-loader 的作用就是帮助我们处理 import/require() 方式引入的一个文件资源，并且会将它放到我们输出的文件夹中；
 
 安装 file-loader：
-```
+```Bash
 npm install file-loader -D
 ```
 
@@ -95,7 +95,7 @@ webpack 给我们提供了大量的 PlaceHolders 来显示不同的内容，以�
 ```
 
 那么我们通常可以这样给图片命名
-```javascript
+```JavaScript
 {
   test: /\.(png|jpe?g|gif|svg)$/i,
   use: {
@@ -112,7 +112,7 @@ webpack 给我们提供了大量的 PlaceHolders 来显示不同的内容，以�
 
 对于一些 eot、ttf、woff 等资源文件，也可以用 file-loader 来处理
 
-```javascript
+```JavaScript
 {
   test: /\.(woff2?|eot|ttf)$/i,
   use: {
@@ -130,7 +130,7 @@ webpack 给我们提供了大量的 PlaceHolders 来显示不同的内容，以�
 url-loader 和 file-loader 的工作方式是相似的，但是可以将较小的文件，**转成 base64 的 URI**。
 
 安装 url-loader：
-```
+```Bash
 npm install url-loader -D
 ```
 
@@ -142,7 +142,7 @@ npm install url-loader -D
 
 设置图片大小转换为 base64 的阈值，属性 `limit`
 
-```javascript
+```JavaScript
 {
   test: /\.(png|jpe?g|gif|svg)$/i,
   use: {
@@ -171,7 +171,7 @@ asset: 导出一个 data URI 和发送一个单独的文件之前自动选择，
 
 通常使用 asset 类型居多
 
-```javascript
+```JavaScript
 {
   test: /\.(png|jpe?g|gif|svg)$/i,
   type: "asset",
@@ -185,5 +185,40 @@ asset: 导出一个 data URI 和发送一个单独的文件之前自动选择，
       maxSize: 10 * 1024
     }
   }
-},
+}
+```
+
+## babel-loader
+
+我们想要使用 ES6+ 的语法，想要使用 TypeScript，开发 React 项目，它们都是离不开Babel的语法转换、源代码转换等
+
+使用 babel 必不可少的需要安装三个库：babel-loader、@babel/core、@babel/preset-env
+
+安装 babel-loader：
+```Bash
+npm install babel-loader @babel/core @babel/preset-env
+```
+
+babel 需要插件才可以生效，我们这里可以使用预设 preset
+```JavaScript
+{
+  test: /\.m?js$/,
+  use: {
+    loader: "babel-loader",
+    options: {
+      presets: [
+        ["@babel/preset-env"]
+      ]
+    }
+  }
+}
+```
+或者可以使用 `babel.config.json` 配置文件：
+```JavaScript
+// babel.config.json
+module.exports = {
+  presets: [
+    ["@babel/preset-env"]
+  ]
+}
 ```
