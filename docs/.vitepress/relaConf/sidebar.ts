@@ -50,6 +50,10 @@ export const sidebar: DefaultTheme.Sidebar = {
       text: 'ES6',
       items: [
         {
+          text: 'ES6 基础',
+          link: '/knowledge/JavaScript+ES6/ES6/'
+        },
+        {
           text: 'ES6 应用',
           link: '/knowledge/JavaScript+ES6/css-app'
         },
@@ -62,19 +66,6 @@ export const sidebar: DefaultTheme.Sidebar = {
   ],
   '/knowledge/Vue/': [
     {
-      text: '使用技巧&面试题',
-      items: [
-        {
-          text: '使用技巧',
-          link: '/knowledge/Vue/Vue3/'
-        },
-        {
-          text: '面试题',
-          link: '/knowledge/Vue/Vue3/components-communication'
-        },
-      ]
-    },
-    {
       text: 'Vue3',
       items: [
         {
@@ -82,8 +73,16 @@ export const sidebar: DefaultTheme.Sidebar = {
           link: '/knowledge/Vue/Vue3/'
         },
         {
+          text: '生命周期',
+          link: '/knowledge/Vue/Vue3/lifecycle-hooks'
+        },
+        {
           text: '组件间通信',
           link: '/knowledge/Vue/Vue3/components-communication'
+        },
+        {
+          text: '响应式原理',
+          link: '/knowledge/Vue/Vue3/reactivity'
         },
       ]
     },
@@ -95,8 +94,29 @@ export const sidebar: DefaultTheme.Sidebar = {
           link: '/knowledge/Vue/Vue2/'
         },
         {
+          text: '生命周期',
+          link: '/knowledge/Vue/Vue2/lifecycle-hooks'
+        },
+        {
           text: '组件间通信',
           link: '/knowledge/Vue/Vue2/components-communication'
+        },
+        {
+          text: '响应式原理',
+          link: '/knowledge/Vue/Vue2/reactivity'
+        },
+      ]
+    },
+    {
+      text: '通用属性',
+      items: [
+        {
+          text: '全局 API',
+          link: '/knowledge/Vue/Common/api'
+        },
+        {
+          text: '内置内容',
+          link: '/knowledge/Vue/Common/content'
         },
       ]
     },
@@ -108,7 +128,20 @@ export const sidebar: DefaultTheme.Sidebar = {
           link: '/knowledge/Vue/Pinia/'
         },
       ]
-    }
+    },
+    {
+      text: '使用技巧&面试题',
+      items: [
+        {
+          text: '使用技巧',
+          link: '/knowledge/Vue/Skill+Offer/'
+        },
+        {
+          text: '面试题',
+          link: '/knowledge/Vue/Skill+Offer/Offer'
+        },
+      ]
+    },
   ],
   '/knowledge/Webpack+Vite/': [
     {

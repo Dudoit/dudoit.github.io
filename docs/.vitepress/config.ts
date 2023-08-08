@@ -8,9 +8,11 @@ export default defineConfig({
   themeConfig: {
     logo: '/avatar.png',
     nav: nav,
-
     sidebar: sidebar,
-
+    outline: {
+      level: [2, 6],
+      label: '目录'
+    },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
     ],

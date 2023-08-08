@@ -31,3 +31,11 @@ features:
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
 
+<!-- 自定义组件 -->
+<script setup>
+import collectNav from './.vitepress/components/collectNav.vue';
+</script>
+
+<collectNav :type="1" />
+<collectNav :type="2" />
+<collectNav :type="0" />

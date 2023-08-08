@@ -40,14 +40,6 @@ module.exports = {
 npm install less-loader -D
 ```
 
-## less-loader
-
-使支持开发中的 Less 预处理器，使 less 自动转换为 css
-
-```Bash
-npm install less-loader -D
-```
-
 ## postcss-loader
 
 PostCSS 是一个通过 JavaScript 来转换样式的工具，它可以实现一些 CSS 的转换和适配，比如自动添加浏览器前缀、css 样式重置。
