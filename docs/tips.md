@@ -1,3 +1,5 @@
+sh ./vitepress-starter/deploy.sh
+
 ## JSON
 
 JSON 可用于做深拷贝

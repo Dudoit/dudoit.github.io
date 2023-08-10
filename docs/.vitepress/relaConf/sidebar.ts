@@ -33,6 +33,10 @@ export const sidebar: DefaultTheme.Sidebar = {
           link: '/knowledge/JavaScript+ES6/JavaScript/'
         },
         {
+          text: 'JavaScript Array',
+          link: '/knowledge/JavaScript+ES6/JavaScript/array'
+        },
+        {
           text: 'JavaScript 网络请求',
           link: '/knowledge/JavaScript+ES6/JavaScript/javascript-network'
         },

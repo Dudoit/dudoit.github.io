@@ -1,4 +1,4 @@
-import { Excalidraw } from "./base64"
+import { Excalidraw, wxMiniProgram } from "./base64"
 
 export const SomeWebsites = [
   {
@@ -50,5 +50,11 @@ export const OfficialWebsites = [
     describe: "符合直觉的 Vue.js 状态管理库",
     link: "https://pinia.vuejs.org/zh/",
     iconUrl: "https://pinia.vuejs.org/logo.svg"
+  },
+  {
+    title: "微信小程序",
+    describe: "微信小程序开发文档",
+    link: "https://pinia.vuejs.org/logo.svg",
+    iconUrl: wxMiniProgram
   },
 ]
