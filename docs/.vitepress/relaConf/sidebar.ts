@@ -37,6 +37,10 @@ export const sidebar: DefaultTheme.Sidebar = {
           link: '/knowledge/JavaScript+ES6/JavaScript/array'
         },
         {
+          text: 'JavaScript String',
+          link: '/knowledge/JavaScript+ES6/JavaScript/string'
+        },
+        {
           text: 'JavaScript 网络请求',
           link: '/knowledge/JavaScript+ES6/JavaScript/javascript-network'
         },
@@ -183,6 +187,26 @@ export const sidebar: DefaultTheme.Sidebar = {
       ]
     }
   ],
+  '/More+/': [
+    {
+      text: 'Npm',
+      items: [
+        {
+          text: 'Npm',
+          link: '/knowledge/More+/Npm/'
+        },
+      ]
+    },
+    {
+      text: 'Git',
+      items: [
+        {
+          text: '字典和集合-Set和Map',
+          link: '/column/Algorithm/003_Dictionary'
+        },
+      ]
+    }
+  ],
   '/develop/Browser+Network/': [
     {
       text: '浏览器',
@@ -255,13 +279,17 @@ export const sidebar: DefaultTheme.Sidebar = {
           text: '前端',
           link: '/develop/Work+Algorithm/Work/'
         },
+        {
+          text: 'npm',
+          link: '/develop/Work+Algorithm/Work/npm'
+        },
       ]
     },
     {
       text: '算法',
       items: [
         {
-          text: '**算法',
+          text: '算法',
           link: '/develop/Work+Algorithm/webpack'
         },
       ]

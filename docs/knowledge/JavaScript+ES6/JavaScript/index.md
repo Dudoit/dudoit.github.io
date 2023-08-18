@@ -1,294 +1,335 @@
 # JavaScript 基础
 
 
-## 数组 Array
+## 内存管理
 
-汇总常用的 Array 对象方法，如有缺失，可在 ES6 的数组小节中查询
+内存管理的生命周期：
 
-📨 标记表示此数组方法将返回新的数组，不改变原数组
+- 分配你申请的内存
+- 使用分配的内存
+- 不使用时对其释放
 
-![Array.prototype](https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.2/blog/images/Array.prototype.png)
+JavaScript 会在定义变量是自动分配内存空间
 
-### Array.isArray()
+对于基本数据类型，会将其分配给栈空间；对于复杂数据（引用）类型，会分配给堆空间
 
-判断一个对象是否为数组
+
+高阶函数：接收一个函数作为参数或返回值是函数的函数称为高阶函数
+
+## 闭包
+
+闭包由两部分组成：函数；可以访问的自由变量
+
+所以，闭包就是指那些能够访问自由变量的函数，这里的自由变量是指外部作用域中的变量
+
+闭包的作用：私有化数据，保护变量，延长变量的生命周期。防抖、节流、vue 响应式原理
+
+闭包的缺陷：可能会导致内存泄露，内部变量不被回收
+
+### 垃圾回收机制
+
+垃圾回收 Garbage Collection，简称 GC
+
+由于内存的大小是有限的，所以当一些内存不再使用时，要对其进行释放，腾出更多的内存空间。
+
+GC 是如何知道哪些对象不再使用的呢？
+
+GC 算法：
+
+- 引用计数：一个对象被一个引用所指向时，这个对象的引用就 +1，当这个对象没有被引用时，即为 0，可以销毁。弊端：循环引用
+
+- 标记清除：设置一个根对象，从根出发找有引用的对象，如果没有，则为不可用对象
+
+### 内存泄露
+
+闭包的内存泄漏是指在使用闭包时，<span class="blue-text">由于对变量的引用未被正确释放，导致内存资源无法回收而造成的浪费</span>。内存泄漏通常发生在对闭包的引用长时间存在，但实际不再被使用的情况；导致内存占用过高，影响性能
+
+**如何避免内存泄漏**
+
+1. **及时释放闭包：当不在使用闭包时，将闭包置为 `null`**
+
+2. 减少闭包的作用域范围
+
+3. 避免循环引用
+
+## this
+
+`this` 通常是在函数中使用，在**函数被调用时**，会创建一个执行上下文，其中记录调用栈、AO对象
+
+函数在调用时，JavaScript 会默认给 this 绑定值；this 的绑定和定义的位置没有关系，和 **调用方式和调用位置** 有关
+
+`this` 在全局均指向 window
+
+### this 的绑定规则
+
+this 有四种绑定规则：默认绑定、隐式绑定、显示绑定、new 绑定
+
+绑定优先级：显式绑定 > new > bind > 隐式绑定 > 默认绑定
+
+- 默认绑定
+
+  默认绑定通常为 独立的函数调用，即没有被绑定对象调用，this 指向 window
+
+  ```JavaScript
+  function foo() {
+    console.log(this);
+  }
+  foo(); // window
+  ```
+
+- 隐式绑定
+
+  通过某个对象进行调用，this 指向这个对象
+
+  ```JavaScript
+  function foo() {
+    console.log(this.name);
+  }
+
+  const obj = {
+    name: 'dudoit',
+    say: foo
+  }
+
+  obj.say(); // dudoit
+  ```
+
+- 显式绑定
+
+  隐式绑定的一个条件是，这个对象内要有某个函数的引用，例如：上面的 obj 对象中引用了 foo 函数
+
+  如果不希望在对象内包括这个引用，就需要使用 **显式绑定明确要绑定的对象**
+
+  **call()**
+
+  ```JavaScript
+  function foo() {
+    console.log(this.name);
+  }
+
+  const obj = {
+    name: 'dudoit',
+  }
+
+  foo.call(obj); // dudoit
+  ```
+
+  :::info 忽略显式绑定
+  当 call() 中绑定的值为 `null` / `undefined` 时，**this 指向 window**
+  :::
+
+  **apply()**
+
+  ```JavaScript
+  function foo(num1, num2) {
+    console.log(this.name);
+    console.log(num1 + num2);
+  }
+
+  const obj = {
+    name: 'dudoit',
+  }
+
+  foo.apply(obj, [10, 15]); // dudoit
+  ```
+
+  :::info call() 和 apply() 两者的差异
+  call() 和 apply() 两者的差异表现在接收参数上。call() 接收的是一个个参数，可使用 ES6 剩余参数；apply() 接收一个数组
+  :::
+
+  **bind()**
+
+  每次调用时都需要加上 `call()` / `apply()` 方法，如果在重复调用次数较高的情况下，`bind()` 是更好的选择
+
+  ```JavaScript
+  function foo() {
+    console.log(this.name);
+  }
+
+  const obj = {
+    name: 'dudoit',
+  }
+
+  const say = foo.bind(obj);
+  say();  // dudoit
+  ```
+
+- new 绑定
+
+  JavaScript 中的函数可以当作类的构造函数使用，使用 new 关键字会进行以下操作：
+
+  创建一个新的对象；这个新对象会被绑定在函数调用的 this 上
+
+  ```JavaScript
+  function Person(name) {
+    console.log(this);  // Person {}
+    this.name = name;  // Person {name: "dudoit"}
+  }
+
+  const p = new Person("dudoit");
+  ```
+
+- 内置函数的绑定
+
+  **setTimeout**
+
+  setTimeout 中的 this 指向 window
+
+  ```JavaScript
+  setTimeout(function () {
+    console.log(this); // window
+  }, 1000);
+  ```
+
+  **forEach**
+
+  forEach 的第二个参数可指定 this 指定的对象
+
+  ```JavaScript
+  const arr = [11, 22, 33];
+  const obj = { name: 'dudoit' };
+  arr.forEach(function (item) {
+    console.log(this); // obj
+  }, obj);
+  ```
+
+### 箭头函数中 this 的绑定规则
+
+箭头函数中不适用上面的四种绑定规则，**根据外层作用域来决定 `this`**
+
+## arguments
+
+arguments 是一个对应于 **函数的参数** 的 类数组(array-like)对象
+
+array-like 证明它不是一个数组，而是一个对象类型；它有数组的一些特殊的方法
 
 ```JavaScript
-Array.isArray([1, 3, 5])      // true
-Array.isArray('[]')           // false
-Array.isArray(new Array(5))   // true
+function foo(a, b, c) {
+  console.log(arguments); // [Arguments] { '0': 1, '1': 2, '2': 3 }
+  console.log(arguments.length); // 3
+  console.log(arguments[0]); // 1
+  console.log(arguments[1]); // 2
+  console.log(arguments[2]); // 3
+}
+
+foo(1, 2, 3)
 ```
 
-### Array.prototype.indexOf()
+:::warning
+箭头函数中不绑定 arguments，箭头函数会去上层作用域中查找
+:::
 
-返回数组中第一次出现给定元素的下标；不存在则返回 -1
+
+## 纯函数
+
+符合下面两条规则的函数就称为纯函数：
+
+1. 传入相同的参数，返回的内容一致
+2. 执行 **不会产生副作用** 的函数
+
+副作用指：修改了全局变量，修改参数或者改变外部的存储
+
+Array 内置对象上的 `slice()` 方法属于纯函数，而 `splice()` 由于会修改原数组，所以不是纯函数
+
+纯函数的优势：可以放心地编写和使用
+
+## 柯里化
+
+传递给函数一部分参数去调用，再返回一个函数处理剩余的参数，这个过程称为柯里化
 
 ```JavaScript
-const birds = ['🦆', '🐓', '🦅', '🦜', '🐓'];
+function add(m, n) {
+  return m + n
+}
+add(10, 20)
 
-birds.indexOf('🐓')      // 1
-birds.indexOf('🐓', 2)   // 4
-birds.indexOf('🦩')      // -1
+// 柯里化处理
+function cAdd(m) {
+  return function (n) {
+    return m + n
+  }
+}
+cAdd(10)(20)
+
+// 箭头函数的简化
+const cAdd2 = (m) => (n) => m + n
 ```
 
-### Array.prototype.lastIndexOf()
+柯里化可以使每个函数的职责单一，分工明确
 
-返回数组中给定元素最后一次出现的索引；不存在则返回 -1
+- 柯里化的复用
+
+  ```JavaScript
+  function makeAdder(num) {
+    return function(count) {
+      return num + count
+    }
+  }
+
+  const add5 = makeAdder(5)
+  const add10 = makeAdder(10)
+  add5(10) // 15
+  add5(20) // 25
+  add10(10) // 20
+  ```
+
+- 利用这个特性，可以实现打印日志函数的实现
+
+  ```JavaScript
+  const log = date => type => message => {
+    console.log(`[${date.getHours()}:${date.getMinutes()}] [${type}] [${message}]`)
+  }
+
+  const logNow = log(new Date())
+  logNow("DEBUG")("debug 信息1xxxx")
+  logNow("DEBUG")("debug 信息2xxxx")
+
+  const logNowDebug = log(new Date())("DEBUG")
+  logNowDebug("debug 信息1xxxx")
+  logNowDebug("debug 信息2xxxx")
+  ```
+
+- 将普通函数转换为柯里化函数
+
+  ```JavaScript
+  function currying(fn) {
+    return function (...args) {
+      if (args.length >= fn.length) {
+        // 如果传入的参数数量 大于等于 函数本身可接收的参数，直接执行此函数
+        return fn.apply(this, args)
+      } else {
+        return function (...args2) {
+          // 递归调用柯里化函数，并传入本次接收的参数
+          return curried.apply(this, args.concat(args2))
+        }
+      }
+    }
+  }
+  ```
+## 面向对象
+
+创建对象的两种方式：
+
+- `const obj = new Object()`
+
+- `const obj = {}`，字面量的形式
+
+### Object.defineProperty()
+
+`Object.defineProperty()` 可以定义一个新属性或修改一个对象的现有属性
 
 ```JavaScript
-const birds = ['🦆', '🐓', '🦅', '🦜', '🐓'];
+Object.defineProperty(obj, prop, descriptor)
 
-birds.lastIndexOf('🐓')      // 4
-birds.lastIndexOf('🐓', 2)   // 1
+// obj：定义属性的对象
+// prop：定义属性的名称
+// descriptor：定义或修改的属性描述符
 ```
 
-### Array.prototype.every()
+2 种属性描述符：
 
-检测数组 **所有** 元素是否都符合指定条件
+- 数据属性描述符
 
-```JavaScript
-const isBelowThreshold = (currentValue) => currentValue < 40
+  可定义的属性有：configurable 可修改的
 
-const array = [1, 30, 39, 29, 10, 13]
-
-array.every(isBelowThreshold)  // true
-```
-
-### Array.prototype.some()
-
-检测数组中是否 **至少有一个** 元素符合指定条件
-
-```JavaScript
-const array = [1, 2, 3, 4, 5]
-
-const even = (element) => element % 2 === 0
-
-array.some(even)  // true
-```
-
-### Array.prototype.filter() 📨
-
-创建给定数组一部分的浅拷贝，包含符合条件的所有元素
-
-```JavaScript
-const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
-
-const result = words.filter((word) => word.length > 6);
-
-console.log(result);  // ["exuberant", "destruction", "present"]
-```
-
-### Array.prototype.forEach()
-
-对数组的每个元素执行一次给定的函数
-
-```JavaScript
-const array1 = ['a', 'b', 'c'];
-
-array1.forEach((element) => console.log(element));
-// "a"
-// "b"
-// "c"
-```
-
-### Array.prototype.map() 📨
-
-创建一个新数组，由原数组中的每个元素都调用一次提供的函数后的返回值组成
-
-```JavaScript 
-const array1 = [1, 4, 9, 16];
-
-const map1 = array1.map((x) => x * 2);
-
-console.log(map1);  // [2, 8, 18, 32]
-```
-
-### Array.prototype.reduce()
-
-reducer 逐个遍历数组元素，每一步都将当前元素的值与前一步的结果相加
-
-```JavaScript
-const array1 = [1, 2, 3, 4];  // 0 + 1 + 2 + 3 + 4
-
-const initialValue = 0;
-const sumWithInitial = array1.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
-
-console.log(sumWithInitial);  // 10
-```
-
-### Array.prototype.reduceRight()
-
-和 reduce() 功能一致，累加的顺序反转
-
-```JavaScript
-const array = [
-  [0, 1],
-  [2, 3],
-  [4, 5],
-];
-
-const result = array.reduceRight((accumulator, currentValue) => accumulator.concat(currentValue));
-
-console.log(result);  // [4, 5, 2, 3, 0, 1]
-```
-
-### Array.prototype.concat() 📨
-
-用于合并两个或多个数组
-
-```JavaScript
-const array1 = ['a', 'b', 'c'];
-const array2 = ['d', 'e', 'f'];
-const array3 = array1.concat(array2);
-
-console.log(array3);  // ["a", "b", "c", "d", "e", "f"]
-```
-
-### Array.prototype.push()
-
-向数组的末尾添加一个或更多元素，并返回新的长度
-
-![javascript-push](https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.2/blog/images/javascript-push.png)
-
-```JavaScript
-onst animals = ['pigs', 'goats', 'sheep'];
-
-const count = animals.push('cows');
-console.log(count);  // 4
-console.log(animals);  // ["pigs", "goats", "sheep", "cows"]
-```
-
-### Array.prototype.unshift()
-
-将指定元素添加到数组的开头，并返回数组的新长度
-
-![javascript-unshift](https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.2/blog/images/javascript-unshift.png)
-
-```JavaScript
-const array1 = [1, 2, 3];
-
-console.log(array1.unshift(4, 5));  // 5
-console.log(array1);  // [4, 5, 1, 2, 3]
-```
-
-### Array.prototype.pop()
-
-删除数组中最后一个元素，并返回该元素的值
-
-![javascript-pop](https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.2/blog/images/javascript-pop.png)
-
-```JavaScript
-const plants = ['broccoli', 'cauliflower', 'cabbage', 'kale', 'tomato'];
-
-console.log(plants.pop());  // "tomato"
-console.log(plants);  // ["broccoli", "cauliflower", "cabbage", "kale"]
-```
-
-### Array.prototype.shift()
-
-删除数组中第一个元素，并返回该元素的值
-
-![javascript-shift](https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.2/blog/images/javascript-shift.png)
-
-```JavaScript
-const array = [1, 2, 3];
-
-console.log(array.shift());  // 1
-console.log(array);  // [2, 3]
-```
-
-### Array.prototype.splice()
-
-添加或删除数组中的元素，`splice()` 会改变原始数组
-
-`splice()` 接收 3 参数：
-  - `start`：从何处添加/删除元素
-  - `deleteCount`（可选）：从 start 开始删除的元素数量
-  - `item1, ..., itemN`（可选）：要添加到数组的新元素
-
-![javascript-splice](https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.2/blog/images/javascript-splice.png)
-
-```JavaScript
-const months = ['Jan', 'March', 'April', 'June'];
-months.splice(1, 0, 'Feb');
-console.log(months);  // ["Jan", "Feb", "March", "April", "June"]
-
-months.splice(4, 1, 'May');
-console.log(months);  // ["Jan", "Feb", "March", "April", "May"]
-```
-
-### Array.prototype.slice() 📨
-
-从已有的数组中返回区间内元素
-
-![javascript-slice](https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.2/blog/images/javascript-slice.png)
-
-```JavaScript
-const animals = ['ant', 'bison', 'camel', 'duck', 'elephant'];
-
-console.log(animals.slice(2));  // ["camel", "duck", "elephant"]
-console.log(animals.slice(2, 4));  // ["camel", "duck"]
-console.log(animals.slice(-2));  // ["duck", "elephant"]
-console.log(animals.slice(2, -1));  // ["camel", "duck"]
-console.log(animals.slice());  // ["ant", "bison", "camel", "duck", "elephant"]
-```
-
-### Array.prototype.sort()
-
-对数组的元素进行排序。默认排序是将元素转换为字符串，按照 UTF-16 码元值升序排序。
-
-```JavaScript
-const months = ['March', 'Jan', 'Feb', 'Dec'];
-months.sort();
-console.log(months);  // ["Dec", "Feb", "Jan", "March"]
-
-const array1 = [1, 30, 4, 21, 100000];
-array1.sort();
-console.log(array1);  // [1, 100000, 21, 30, 4]
-
-const items = [
-  { name: "Edward", value: 21 },
-  { name: "Sharpe", value: 37 },
-  { name: "And", value: 45 },
-  { name: "The", value: -12 },
-  { name: "Magnetic", value: 13 },
-  { name: "Zeros", value: 37 },
-];
-
-items.sort((a, b) => b.value - a.value);
-```
-
-### Array.prototype.reverse()
-
-反转数组中的元素，并返回同一数组的引用
-
-```JavaScript
-const array = ['one', 'two', 'three'];
-const reversed = array.reverse();
-console.log('reversed:', reversed);  // ["three", "two", "one"]
-console.log('array:', array);  // ["three", "two", "one"]
-```
-
-### Array.prototype.join()
-
-将数组用指定的分隔符进行分隔
-
-```JavaScript
-const elements = ['Fire', 'Air', 'Water'];
-
-elements.join()    // "Fire,Air,Water"
-elements.join('')  // "FireAirWater"
-elements.join('-') // "Fire-Air-Water"
-```
-
-### Array.prototype.toString()
-
-返回一个字符串，表示指定的数组及其元素
-
-```JavaScript
-const array1 = [1, 2, 'a', '1a'];
-
-array1.toString()  // "1,2,a,1a"
-```
-
-## 数组 Array ES6
+- 存取属性描述符

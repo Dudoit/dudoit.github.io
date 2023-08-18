@@ -21,6 +21,10 @@ export const nav: DefaultTheme.NavItem[] = [
         text: 'Webpack+Vite',
         link: '/knowledge/Webpack+Vite/'
       },
+      {
+        text: 'More+',
+        link: '/knowledge/More/Npm/'
+      },
     ]
   },
   {

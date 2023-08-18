@@ -1,4 +1,6 @@
 sh ./vitepress-starter/deploy.sh
+<!-- 彩票格子：彩票分为格子刮 -->
+<!-- 需调整目录(未使用中文标点): More/Npm -->
 
 ## JSON
 
@@ -56,6 +58,31 @@ Vue 中 `<style>` 标签中的 scope 属性为了防止组件间的样式污染
 
 如果是需要实现用户可选工具，有选项可关闭其内容
 
+web开发做题系统 缓解移动端压力
+视频加密
+
 ## 其他
 
 5 的 2 次方 -> 5 ** 2
+
+一个对象的方法例如 const obj = { get: () => {} } ，obj.get() 的上层作用域是外层作用域，
+
+```JavaScript
+function foo() {
+  function oo() {
+    console.log(this)
+  }
+}
+
+const obj = {
+  get: () => {
+    console.log(this) // window
+  }
+}
+```
+
+可以通过 `函数.length` 属性查看函数所需要接收的参数
+```JavaScript
+function foo(a, b, c, d) {}
+console.log(foo.length); // 5
+```

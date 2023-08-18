@@ -7,6 +7,12 @@ export const SomeWebsites = [
     link: "https://excalidraw.com/",
     iconUrl: Excalidraw
   },
+  {
+    title: "阿里云",
+    describe: "阿里云官网",
+    link: "https://cn.aliyun.com/",
+    iconUrl: "https://ecmb.bdimg.com/tam-ogel/1815134652_-1760084283_1200_1200.png"
+  },
 ]
 
 // 技术博客
