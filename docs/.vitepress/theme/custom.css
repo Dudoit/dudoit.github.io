@@ -28,3 +28,15 @@
 .blue-text {
   color: #0575c5;
 }
+
+.secondary-text {
+  color: #909399;
+}
+
+/* 插槽抽出的样式 */
+.slot-nav-title {
+  line-height: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}

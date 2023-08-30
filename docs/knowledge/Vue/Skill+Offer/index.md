@@ -1,3 +1,120 @@
+# Vue 常用技巧
+
+## 插槽
+
+::: code-group
+```Vue [parent.vue]{4}
+<template>
+  <son>
+    default content <!-- 插槽内容 -->
+  </son>
+</template>
+```
+
+```Vue [son.vue]
+<template>
+  <header>
+    <solt></solt> <!-- 插槽出口 -->
+  </header>
+</template>
+```
+:::
+
+`<slot>` 元素是一个插槽出口 (slot outlet)，标示了父元素提供的插槽内容 (slot content) 将在哪里被渲染
+
+![solt](https://cn.vuejs.org/assets/slots.dbdaf1e8.png)
+
+插槽内容可以是任意合法的模板内容，不局限于文本
+
+```Vue
+<template>
+  <son>
+    <span>default content</span>
+    <other-son />
+  </son>
+</template>
+```
+
+### 默认内容
+
+```Vue
+<template>
+  <header>
+    <solt>
+      son component default content <!-- 插槽里可以设置默认内容 -->
+    </solt>
+  </header>
+</template>
+```
+
+### 具名插槽
+
+```Vue
+<template class="container">
+  <header>
+    <slot name="header"></slot>
+  </header>
+  <main>
+    <slot></slot>
+  </main>
+  <footer>
+    <slot name="footer"></slot>
+  </footer>
+</template>
+```
+
+```Vue
+<template class="container">
+  <BaseLayout>
+    <template v-slot:header>
+      <!-- header 插槽的内容放这里 -->
+    </template>
+
+    <template #default> <!-- v-solt 缩写 -->
+      <!-- default 插槽的内容放这里 -->
+    </template>
+
+    <!-- dynamicSlotName: 'footer' -->
+    <template #[dynamicSlotName]> <!-- 动态插槽名 -->
+      
+    </template>
+  </BaseLayout>
+</template>
+```
+
+![named solts](https://cn.vuejs.org/assets/named-slots.ebb7b207.png)
+
+### 作用域插槽
+
+::: code-group
+```Vue [parent.vue]
+<template>
+  <son v-solt="slotProps">
+    {{ slotProps.text }} {{ slotProps.age }}
+  </son>
+
+  <son v-solt="{ text, age }">
+    {{ text }} {{ age }}
+  </son>
+
+  <son #header="headerProps">
+    {{ text }} {{ age }}
+  </son>
+</template>
+```
+
+```Vue [son.vue]
+<template>
+  <header>
+    <solt name="header" :text="some text" :age="1"></solt>
+  </header>
+</template>
+```
+:::
+
+![named solts](https://cn.vuejs.org/assets/named-slots.ebb7b207.png)
+
+
 ## 动态组件
 
 ```Vue

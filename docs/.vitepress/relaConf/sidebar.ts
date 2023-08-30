@@ -135,6 +135,10 @@ export const sidebar: DefaultTheme.Sidebar = {
           text: 'Pinia',
           link: '/knowledge/Vue/Pinia/'
         },
+        {
+          text: 'Vue-Router',
+          link: '/knowledge/Vue/Pinia/router'
+        },
       ]
     },
     {
@@ -187,13 +191,13 @@ export const sidebar: DefaultTheme.Sidebar = {
       ]
     }
   ],
-  '/More+/': [
+  '/knowledge/More/': [
     {
       text: 'Npm',
       items: [
         {
           text: 'Npm',
-          link: '/knowledge/More+/Npm/'
+          link: '/knowledge/More/Npm/'
         },
       ]
     },
@@ -201,8 +205,12 @@ export const sidebar: DefaultTheme.Sidebar = {
       text: 'Git',
       items: [
         {
-          text: '字典和集合-Set和Map',
-          link: '/column/Algorithm/003_Dictionary'
+          text: '基础知识',
+          link: '/knowledge/More/Git/'
+        },
+        {
+          text: '错误解决方案',
+          link: '/knowledge/More/Git/issue'
         },
       ]
     }
@@ -282,6 +290,15 @@ export const sidebar: DefaultTheme.Sidebar = {
         {
           text: 'npm',
           link: '/develop/Work+Algorithm/Work/npm'
+        },
+      ]
+    },
+    {
+      text: '手写代码',
+      items: [
+        {
+          text: '实现',
+          link: '/develop/Work+Algorithm/Code/'
         },
       ]
     },

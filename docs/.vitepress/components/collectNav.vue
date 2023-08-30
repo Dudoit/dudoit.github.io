@@ -1,12 +1,12 @@
 <template>
   <div class="nav-wrapper">
-    <h2>{{ navWebsite.title }}</h2>
+    <h2>{{ navs.title }}</h2>
     <div class="nav-list">
-      <div v-for="nav in navWebsite.websites" :key="nav.title" class="nav-item">
+      <div v-for="nav in navs.websites" :key="nav.title" class="nav-item">
         <div class="nav-info">
-          <img :src="nav.iconUrl" alt="">
+          <img :src="nav.iconUrl" :alt="nav.title">
           <div>
-            <h3 @click="openNav(nav.link)">{{ nav.title }}</h3>
+            <slot name="title" :link="nav.link" :title="nav.title"></slot>
             <p>{{ nav.describe }}</p>
           </div>
         </div>
@@ -16,26 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-import { SomeWebsites, BlogWebsites, OfficialWebsites } from "./config"
-const prop = defineProps(["type"])
-
-const navWebsites = [
-  {
-    title: "一些网站导航",
-    websites: SomeWebsites
-  },
-  {
-    title: "技术博客",
-    websites: BlogWebsites
-  },
-  {
-    title: "官网文档",
-    websites: OfficialWebsites
-  },
-]
-const navWebsite = navWebsites[prop.type]
-
-const openNav = (link) => window.open(link, "_blank")
+const prop = defineProps(["navs"])
 </script>
 
 <style scoped>

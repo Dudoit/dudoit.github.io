@@ -1,5 +1,11 @@
 # JavaScript 应用
 
+## 字符串反转
+
+```JavaScript
+string.split('').reverse().join('')
+```
+
 ## 格式化文件大小
 
 ```JavaScript

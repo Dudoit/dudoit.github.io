@@ -3,13 +3,14 @@
 ## JavaScript 的内置类型有哪些？
 
 ```
-1. 空类型:null
-2. 未定义:undefined
-3. 布尔:boolean
-4. 数字:number
-5. 字符串:string
-6. 符号:symbol(ES6新增)
-7. 对象:object
+1. 空类型: null
+2. 未定义: undefined
+3. 布尔: boolean
+4. 数字: number
+5. 字符串: string
+6. 符号: symbol(ES6新增)
+7. 大整数: bigint
+8. 对象: object
 除了对象之外,其他为基本类型.
 ```
 

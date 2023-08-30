@@ -11,13 +11,16 @@ hero:
   name: "dudoit"
   text: "PINKY SWEAR"
   tagline: 弗拉基米尔 | 乐芙兰
+  image:
+      src: https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.4/blog/images/home-illustration.png
+      alt: home-illustration
   actions:
     - theme: brand
       text: Markdown Examples
       link: /markdown-examples
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: 🛴 Nav Page
+      link: /nav-page
 
 features:
   - icon: 🧊
@@ -34,8 +37,11 @@ features:
 <!-- 自定义组件 -->
 <script setup>
 import collectNav from './.vitepress/components/collectNav.vue';
+import { homeNav } from './.vitepress/components/config.ts';
+
+const openNav = (link) => window.open(link, "_blank")
 </script>
 
-<collectNav :type="1" />
-<collectNav :type="2" />
-<collectNav :type="0" />
+<collectNav v-for="navs in homeNav" :key="navs.title" :navs="navs" #title="titleProps">
+  <h3 @click="openNav(titleProps.link)" class="slot-nav-title">{{ titleProps.title }}</h3>
+</collectNav>

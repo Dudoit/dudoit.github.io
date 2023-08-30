@@ -1,49 +1,11 @@
-import { DefaultTheme } from 'vitepress';
+// import { DefaultTheme } from 'vitepress';
+import { Knowledge, Develop } from '../components/config';
 
-export const nav: DefaultTheme.NavItem[] = [
+// export const nav: DefaultTheme.NavItem[] = [
+export const nav = [
   { text: '首页', link: '/' },
-  {
-    text: '知识清单',
-    items: [
-      {
-        text: 'HTML+CSS',
-        link: '/knowledge/HTML+CSS/'
-      },
-      {
-        text: 'JavaScript+ES6',
-        link: '/knowledge/JavaScript+ES6/JavaScript/'
-      },
-      {
-        text: 'Vue',
-        link: '/knowledge/Vue/Vue3/'
-      },
-      {
-        text: 'Webpack+Vite',
-        link: '/knowledge/Webpack+Vite/'
-      },
-      {
-        text: 'More+',
-        link: '/knowledge/More/Npm/'
-      },
-    ]
-  },
-  {
-    text: '开发手册',
-    items: [
-      {
-        text: '浏览器+网络',
-        link: '/develop/Browser+Network/Browser/'
-      },
-      {
-        text: '开发优化',
-        link: '/develop/Performance/'
-      },
-      {
-        text: '业务场景+算法',
-        link: '/develop/Work+Algorithm/Work/'
-      },
-    ]
-  },
+  Knowledge, // 知识清单
+  Develop, // 开发手册
   // {
   //   text: '个人成长',
   //   items: [
@@ -60,10 +22,10 @@ export const nav: DefaultTheme.NavItem[] = [
   {
     text: '关于我',
     items: [
-      { text: 'Github', link: 'https://github.com/Jacqueline712' },
+      { text: 'Github', link: 'https://github.com/Dudoit/' },
       {
         text: '掘金',
-        link: 'https://juejin.cn/user/3131845139247960/posts'
+        link: 'https://juejin.cn/user/2849570377958872'
       },
     ]
   }

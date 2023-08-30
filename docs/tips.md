@@ -86,3 +86,35 @@ const obj = {
 function foo(a, b, c, d) {}
 console.log(foo.length); // 5
 ```
+
+## IOS 的存储目录
+
+IOS 为了安全性， 把每个应用都放在一个沙盒中
+
+`Documents` 存储长久保存的数据 不建议存储大文件 (iTunes会自动备份该目录)
+`Library/Caches` 一般存储的是缓存文件，例如图片视频等，此目录下的文件不会再应用程序退出时删除。在手机备份的时候，iTunes不会备份该目录。例如音频,视频等文件存放其中
+`Libray/Preference` 存储偏好设置,比如:应用程序是否是第一次启动、保存用户名和密码.我们最常用这个 (iTunes会自动备份该目录)，我们不应该直接在这里创建文件，而是需要通过NSUserDefault这个类来访问应用程序的偏好设置。
+`tem` 临时文件目录，在程序重新运行的时候，和开机的时候，会清空tmp文件夹。
+
+缓存在iOS设备的/Library/Caches目录中的文件通常由相应的应用程序负责管理和清理。以下情况下，应用程序可能会自动删除该目录中的文件：
+
+1. 应用程序主动进行缓存管理：某些应用程序在使用过程中会自动清理缓存文件，以保持设备的存储空间。这些应用程序通常会在后台定期清理，或者根据一定的缓存空间限制自动删除旧的缓存文件。
+
+2. 设备存储空间不足：当iOS设备的存储空间不足时，系统会自动清理缓存文件以释放空间。这通常会涉及到清理应用程序的缓存文件，其中包括/Library/Caches目录中的文件。
+
+
+ios 5.0.1版将提供一个新的功能，可对一个文件设定一个属性，告诉系统即使在低存储的情况下，对这个文件也不会进行删除，这样的文件在用户备份到iCloud或iTunes的时候也不会被备份，所以需要开发人员手动进行管理。
+
+```Objective-C
+#include <sys/xattr.h>
+- (void) AddSkipBackupAttributeToFile: (NSURL*) url
+{
+  u_int8_t b = 1;
+  setxattr([[url path] fileSystemRepresentation], "com.apple.Mobile
+Backup", &b, 1, 0, 0);
+}
+```
+
+
+## 插画网站
+https://pixabay.com/

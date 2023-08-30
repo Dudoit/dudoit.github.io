@@ -330,6 +330,122 @@ Object.defineProperty(obj, prop, descriptor)
 
 - 数据属性描述符
 
-  可定义的属性有：configurable 可修改的
+  可定义的属性有：configurable 是否可删除 | enumerable 是否可枚举 | writable 是否可修改属性值 | value 属性值
+
+  通过字面量定义对象时，以上属性默认值为：`true` | `true` | `true` | `value`
+
+  通过属性描述符定义对象时，以上属性默认值为：`false` | `false` | `false` | `undefined`
 
 - 存取属性描述符
+
+  可定义的属性有：configurable 是否可删除 | enumerable 是否可枚举 | get 获取属性执行函数 | set 设置属性执行函数
+
+  通过属性描述符定义对象时，以上属性默认值为：`false` | `false` | `undefined` | `undefined`
+
+### Object.defineProperties()
+
+同时定义多个属性或修改现有属性
+
+```JavaScript
+const obj = { _age: 18 }
+
+Object.defineProperties(obj, {
+  name: {
+    writable: true,
+    value: "dudoit"
+  },
+  age: {
+    get: function() {
+      return this._age
+    }
+  }
+})
+```
+
+### 方法补充
+
+获取对象的属性描述符：getOwnPropertyDescriptor | getOwnPropertyDescriptors
+
+禁止添加新属性：preventExtensions
+
+禁止配置和删除：seal
+
+冻结、禁止修改现有属性值：freeze
+
+### 创建多个对象
+
+- 工厂模式
+
+  ```JavaScript
+  function createPerson(name, age) {
+    return {
+      name,
+      age
+    }
+  }
+
+  const p1 = createPerson("张三", 18) // { name: '张三', age: 18 }
+  const p2 = createPerson("李四", 18) // { name: '李四', age: 18 }
+  const p3 = createPerson("王五", 18) // { name: '王五', age: 18 }
+  ```
+
+  工厂模式的缺点：无法确认对象的类型
+
+- 构造函数
+
+  ```JavaScript
+  function Person(name, age) {
+    this.name = name
+    this.age = age
+  }
+
+  const p1 = new Person("张三", 18) // Person { name: '张三', age: 18 }
+  const p2 = new Person("李四", 18) // Person { name: '李四', age: 18 }
+  ```
+
+  构造函数的缺点：它会在每个对象中创建一个函数对象实例，占用内存
+
+### 对象的原型
+
+JavaScript 中，每个对象都一个内置属性 `[[Prototype]]`
+
+获取这个属性的方法：属性 `__proto__` | `Object.getPrototypeOf()` 方法
+
+### 函数的原型
+
+所有函数上也有一个 `prototype` 属性
+
+通过 new 创建对象时，对象内部的 `[[Prototype]]` 属性就会被构造函数的 `prototype` 赋值
+
+```JavaScript
+function Person() {}
+
+const p1 = new Person()
+const p2 = new Person()
+
+p1.__proto__ === p2.__proto__ // true
+p1.__proto__ === Person.prototype // true
+```
+
+原型对象 `Person.prototype` 上有一个属性 `constructor`，它指向当前函数对象
+
+```JavaScript
+function Person() {}
+
+console.log(Person.prototype.constructor)  // [Function: Person]
+```
+
+### 解决构造函数的弊端 - 构造函数和原型组合
+
+将共同的函数放在构造函数的 `prototype` 属性上
+
+```JavaScript
+function Person(name) {
+  this.name = name
+}
+
+Person.prototype.eating = function () {}
+Person.prototype.running = function () {}
+```
+
+## ES6 - Class
