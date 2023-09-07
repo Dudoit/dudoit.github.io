@@ -1,5 +1,5 @@
 <template>
-  <img class="cdn-img" :src="imgUrl" :alt="alt">
+  <img class="cdn-img" :src="imgUrl" :alt="alt ? alt : src">
 </template>
 
 <script lang="ts" setup>

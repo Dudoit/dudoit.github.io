@@ -1,12 +1,12 @@
-# 响应式原理
+# Vue3 的响应式原理
 
 ## 什么是响应式？
 
-假设，初始化变量 `role` 的值为 `student`，如果我们将 `role` 的值更改为 `teacher`：
+假设，初始化变量 `role` 属性的值为 `student`，如果我们将 `role` 的值更改为 `teacher`：
 
 那么部分权限的值可能也会随之更改：职位、部门、班级等
 
-```JavaScript
+```JavaScript{7}
 function roleChange(person) {
   person.position = ''
   person.department = ''
@@ -32,6 +32,7 @@ const memberProxy = new Proxy(member, {
   get: function(target, key, receiver) {
     return Reflect.get(target, key, receiver)
   },
+  // 当每次设置新值时，调用此函数
   set: function(target, key, value, receiver) {
     Reflect.set(target, key, value, receiver)
     roleChange(receiver)
@@ -47,14 +48,19 @@ function roleChange(person) {
 memberProxy.role = 'teacher'
 ```
 
+这样封装的缺点：
+
+1. 如果 memberProxy 更改了两次，就会有两次的响应
+
 ## 收集依赖
 
 ```JavaScript
-class Depend() {
+class Depend {
   constructor() {
     this.reactiveFns = []
   }
 
+  // 收集依赖
   addDepend(reactiveFn) {
     this.reactiveFns.push(reactiveFn)
   }

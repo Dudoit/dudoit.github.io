@@ -297,7 +297,33 @@ BFC 的触发条件（满足以下条件之一即可）：
 
 Flexbox 是一种用于创建弹性布局的 CSS 模块，主要为了方便地实现响应式设计。
 
-Flexbox 的一些属性：`flex-direction`、`flex-wrap`、`flex-flow`、`justify-content`、`align-items`、`align-self`、`align-content`、`order`、`flex-grow`、`flex-grow`、`flex-shrink`、`flex-basis`
+容器的属性：`flex-direction`、`flex-wrap`、`flex-flow`、`justify-content`、`align-items`、`align-content`
+
+项目的属性：`order`、`flex-grow`、`flex-shrink`、`flex-basis`、`align-items`、`align-self`
+
+- order
+
+  项目的排列顺序，数值越小与靠前。
+
+  默认值：0
+
+- flex-grow
+
+  项目的放大比例，决定项目在容器中的可用空间分配
+
+  默认值：0 （如果存在剩余空间也不放大）
+
+- flex-shrink
+
+  项目的缩小比例，决定项目在容器中空间不足时的缩小程度
+
+  默认值：1 （如果空间不足，该项目将缩小）
+
+- flex-basis
+
+  项目的初始大小
+
+  默认值：auto
 
 **flex 和 inline-flex 的区别**
 
@@ -318,10 +344,11 @@ flex-basis： 定义项目的初始大小
 当 flex: 1 时，相当于
 
 ```css
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: 0%;
+flex-grow: 1;
+flex-shrink: 1;
+flex-basis: 0%;
 ```
+
 
 ## 圣杯布局
 

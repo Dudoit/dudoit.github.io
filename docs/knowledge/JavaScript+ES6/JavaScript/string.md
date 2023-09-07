@@ -6,7 +6,7 @@ import cdnImg from '/.vitepress/components/cdnImg.vue';
 
 ## 🧶 String - 字符串
 
-<cdnImg src="String.prototype" alt="String.prototype" />
+<cdnImg src="String.prototype" />
 
 ### String.prototype.charAt()
 
@@ -177,7 +177,7 @@ stringObj.toString()  // "foo"
 
 ## 🧵 String - ES6
 
-<cdnImg src="String-es6" alt="String-es6" />
+<cdnImg src="String-es6" />
 
 ### String.prototype.includes()
 

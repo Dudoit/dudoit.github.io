@@ -294,6 +294,19 @@ export const sidebar: DefaultTheme.Sidebar = {
       ]
     },
     {
+      text: '面试',
+      items: [
+        {
+          text: 'CSS',
+          link: '/develop/Work+Algorithm/Offer/css'
+        },
+        {
+          text: 'JavaScript',
+          link: '/develop/Work+Algorithm/Offer/javascript'
+        },
+      ]
+    },
+    {
       text: '手写代码',
       items: [
         {

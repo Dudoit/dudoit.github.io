@@ -1,3 +1,7 @@
+<script setup>
+import cdnImg from '/.vitepress/components/cdnImg.vue';
+</script>
+
 # 发布自己的 npm 包
 
 [npm](https://www.npmjs.com/)
@@ -6,7 +10,7 @@ https://juejin.cn/post/7215465880884920379?searchId=20230814093604B2F18D279A38F4
 
 ## 前期准备 - 注册 NPM 账号
 
-![npm-register](https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.3/blog/images/npm-register.png)
+<cdnImg src="npm-register" />
 
 ## 本地创建项目
 
@@ -55,15 +59,15 @@ npm init
 
 执行 `npm login` 登录 npm 
 
-![npm-login](https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.3/blog/images/npm-login.png)
+<cdnImg src="npm-login" />
 
 点击生成的点链接做邮箱验证登录
 
-![npm-two-factor](https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.3/blog/images/npm-two-factor.png)
+<cdnImg src="npm-two-factor" />
 
 执行 `npm publish` 开始上传
 
-![npm-publish](https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.3/blog/images/npm-publish.png)
+<cdnImg src="npm-publish" />
 
 ## publish 常见异常分析
 
@@ -74,8 +78,7 @@ npm init
 
 ## 🎉 上传成功 - 完成
 
-![npm-finish](https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.3/blog/images/npm-finish.png)
-
+<cdnImg src="npm-finish" />
 
 ## file-dir-tree 库
 
@@ -287,7 +290,7 @@ npm init
 
   使用 chalk 非常简单，只需引入库，然后调用相应的方法即可对文本进行样式设置。可以将 chalk 应用于打印日志、输出错误信息、高亮关键字等各种场景。
 
-  ![npm-chalk](https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.3/blog/images/npm-chalk.png)
+  <cdnImg src="npm-chalk" />
 
   ```JavaScript
   import ora from 'ora';

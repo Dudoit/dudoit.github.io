@@ -10,7 +10,7 @@ import cdnImg from '/.vitepress/components/cdnImg.vue';
 
 📨 标记表示此数组方法将返回新的数组，不改变原数组
 
-<cdnImg src="Array.prototype" alt="Array.prototype" />
+<cdnImg src="Array.prototype" />
 
 ### Array.isArray()
 
@@ -151,7 +151,7 @@ console.log(array3);  // ["a", "b", "c", "d", "e", "f"]
 
 向数组的末尾添加一个或更多元素，并返回新的长度
 
-<cdnImg src="javascript-push" alt="javascript-push" />
+<cdnImg src="javascript-push" />
 
 ```JavaScript
 onst animals = ['pigs', 'goats', 'sheep'];
@@ -165,7 +165,7 @@ console.log(animals);  // ["pigs", "goats", "sheep", "cows"]
 
 将指定元素添加到数组的开头，并返回数组的新长度
 
-<cdnImg src="javascript-unshift" alt="javascript-unshift" />
+<cdnImg src="javascript-unshift" />
 
 ```JavaScript
 const array1 = [1, 2, 3];
@@ -178,7 +178,7 @@ console.log(array1);  // [4, 5, 1, 2, 3]
 
 删除数组中最后一个元素，并返回该元素的值
 
-<cdnImg src="javascript-pop" alt="javascript-pop" />
+<cdnImg src="javascript-pop" />
 
 ```JavaScript
 const plants = ['broccoli', 'cauliflower', 'cabbage', 'kale', 'tomato'];
@@ -191,7 +191,7 @@ console.log(plants);  // ["broccoli", "cauliflower", "cabbage", "kale"]
 
 删除数组中第一个元素，并返回该元素的值
 
-<cdnImg src="javascript-shift" alt="javascript-shift" />
+<cdnImg src="javascript-shift" />
 
 ```JavaScript
 const array = [1, 2, 3];
@@ -209,7 +209,7 @@ console.log(array);  // [2, 3]
   - `deleteCount`（可选）：从 start 开始删除的元素数量
   - `item1, ..., itemN`（可选）：要添加到数组的新元素
 
-<cdnImg src="javascript-splice" alt="javascript-splice" />
+<cdnImg src="javascript-splice" />
 
 ```JavaScript
 const months = ['Jan', 'March', 'April', 'June'];
@@ -226,7 +226,7 @@ ES6 的 `toSpliced()` 和其效果一致，<span class="blue-text">且不会改�
 
 从已有的数组中返回区间内元素
 
-<cdnImg src="javascript-slice" alt="javascript-slice" />
+<cdnImg src="javascript-slice" />
 
 ```JavaScript
 const animals = ['ant', 'bison', 'camel', 'duck', 'elephant'];
@@ -303,7 +303,7 @@ array1.toString()  // "1,2,a,1a"
 
 ## 🧵 Array - ES6
 
-<cdnImg src="Array-es6" alt="Array-es6" />
+<cdnImg src="Array-es6" />
 
 ### Array.prototype.find()
 

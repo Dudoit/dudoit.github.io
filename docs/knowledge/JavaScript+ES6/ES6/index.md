@@ -6,6 +6,120 @@
 
 Symbol 值不是对象，所以也不能添加属性。它是一种类似于字符串的数据类型
 
+## Set/WeakSet
+
+### Set
+
+Set 是一个类似数组的数据结构，**用于存储唯一的值**
+
+Set 接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化
+
+```JavaScript
+// 数组
+const set = new Set([1, 2, 3, 4, 4]);
+// 类数组
+const set = new Set(document.querySelectorAll('div'));
+```
+
+:::info 小知识点 💡
+Set 中可以加入 `NaN`；由于对象的特殊性（引用类型），Set 中的对象总是不相等的
+:::
+
+- size
+
+  Set 属性：返回 Set 实例中值的个数
+
+  ```JavaScript
+  let s = new Set();
+  s.add(1).add(2).add(2);
+  s.size // 2
+  ```
+
+- add
+
+  add(value)：添加值，返回 Set
+
+  ```JavaScript
+  let s = new Set();
+  s.add(1).add(2).add(2);
+  s.size // 2
+  ```
+
+- delete
+
+  delete(value)：删除某个值，返回 布尔值
+
+- has
+
+  has(value)：检索 set 中是否包含 value，返回 布尔值
+
+- clear
+
+  clear()：清除所有成员
+
+- keys/values/entries/forEach
+
+  ```JavaScript
+  let set = new Set(['red', 'green', 'blue']);
+
+  for (let item of set.keys()) {
+    console.log(item);
+  }
+  // red
+  // green
+  // blue
+
+  for (let item of set.values()) {
+    console.log(item);
+  }
+  for (let x of set) {
+    console.log(x);
+  }
+  // red
+  // green
+  // blue
+
+  for (let item of set.entries()) {
+    console.log(item);
+  }
+  // ["red", "red"]
+  // ["green", "green"]
+  // ["blue", "blue"]
+  ```
+
+### WeakSet
+
+WeakSet 结构与 Set 类似，有两个区别：
+
+- WeakSet 的值只能是对象和 Symbol 值
+- WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用
+
+## Map/WeakMap
+
+### Map
+
+### WeakMap
+
+## 运算符
+
+### ??
+
+空值运算符
+
+```JavaScript
+const result = data ?? "default value"
+```
+
+`??` 和 `||` 的区别在于，`??` 能够赋予 `0` 和 空字符串
+
+### ?.
+
+可选链
+
+```JavaScript
+result?.data?.name
+```
+
 ## Class
 
 创建类的两种方式：

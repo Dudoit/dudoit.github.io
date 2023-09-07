@@ -1,3 +1,5 @@
+# Vue2 的响应式原理
+
 https://v2.cn.vuejs.org/v2/guide/reactivity.html
 
 当你把一个普通的 JavaScript 对象传入 Vue 实例作为 data 选项，Vue 将遍历此对象所有的 property，并使用 Object.defineProperty 把这些 property 全部转为 getter/setter。
