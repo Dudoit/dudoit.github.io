@@ -1,5 +1,51 @@
 # 手写代码
 
+## call
+
+```JavaScript
+Function.prototype.mycall = function (thisBings, ...args) {
+  thisBings = thisBings ? Object(thisBings) : window
+  thisBings.fn = this
+
+  const result = thisBings.fn(...args)
+  delete thisBings.fn
+
+  return result
+}
+```
+
+## apply
+
+```JavaScript
+Function.prototype.myapply = function (thisBings, args) {
+  thisBings = thisBings ? Object(thisBings) : window
+  thisBings.fn = this
+
+  if (!args) {
+    thisBings.fn()
+  } else {
+    var result = thisBings.fn(...args)
+  }
+
+  delete thisBings.fn
+  return result
+}
+```
+
+## bind
+
+```JavaScript
+Function.prototype.mybind = function (thisBings, bindArgs) {
+  thisBings = thisBings ? Object(thisBings) : window
+  thisBings.fn = this
+
+  return function(...newArgs) {
+    const args = [...bindArgs, ...newArgs]
+    return thisBings.fn(...args)
+  }
+}
+```
+
 ## 防抖函数 debounce
 
 ```JavaScript

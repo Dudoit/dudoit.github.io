@@ -51,8 +51,14 @@ const OfficialWebsites = {
     {
       title: "微信小程序",
       describe: "微信小程序开发文档",
-      link: "https://pinia.vuejs.org/logo.svg",
+      link: "https://developers.weixin.qq.com/miniprogram/dev/framework/",
       iconUrl: wxMiniProgram
+    },
+    {
+      title: "Element Plus",
+      describe: "Vue3 UI 框架",
+      link: "https://element-plus.org/zh-CN/",
+      iconUrl: "https://element-plus.org/images/element-plus-logo.svg"
     },
   ]
 }

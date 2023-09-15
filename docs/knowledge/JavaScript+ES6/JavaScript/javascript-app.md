@@ -19,6 +19,28 @@ function isObject(value) {
 [...new Set(array)]
 ```
 
+### 重组对象
+
+```JavaScript
+const array = [
+  {
+    key: 'name',
+    value: '111'
+  },
+  {
+    key: 'age',
+    value: '222'
+  },
+]
+
+array.reduce((pre, cur) => {
+  pre[cur.key] = cur.value || ''
+  return pre
+}, {})
+
+// { name: '111', age: '222' }
+```
+
 ## 字符串
 
 ### 字符串反转
@@ -33,7 +55,90 @@ string.split('').reverse().join('')
 [...new Set(string)].join('')
 ```
 
-## 格式化文件大小
+## 复写
+
+### setTimeout 实现 setInterval
+
+```JavaScript
+/**
+ * 
+ * @param {Number} delay 延迟时间
+ * @param {Function} fn 函数
+ */
+function setInter(s, fn) {
+  let timeOut = (s,fn) => {
+    setTimeout(() => {
+      fn()
+      timeOut(s, fn)
+    }, s)
+  }
+  timeOut(s, fn)
+}
+```
+
+### setTimeout 实现 setInterval
+
+```JavaScript
+/**
+ * 多次执行
+ * @param {Function} func 函数
+ * @param {Number} delay 延迟时间
+ * @param {Number} times 执行次数
+ */
+function interval(func, delay, times) {
+  var interv = function() {
+    if (typeof times === "undefined" || times-- > 0) {
+      setTimeout(interv, delay)
+      try {
+        func.call(null)
+      } catch(e) {
+        times = 0
+        throw e.toString()
+      }
+    }
+  };
+  setTimeout(interv, delay)
+}
+```
+
+## 业务
+
+### 校验手机号
+
+```JavaScript
+/**
+ * 校验手机号
+ * @param {String} phone 11位的手机号码
+ */
+function checkPhone(phone) {
+  if (!/^1[3-9]\d{9}$/.test(phone)) return false
+  return true
+}
+```
+
+### 隐藏手机号中间 4 位
+
+```JavaScript
+/**
+ * 隐藏手机号中间 4 位
+ * @param {String} phone 11位的手机号码
+ */
+function hidePhone(phone) {
+  return phone.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2')
+}
+```
+
+### 邮箱格式验证
+
+```JavaScript
+function validateEmail(email) {
+  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const isValid = pattern.test(email);
+  return isValid;
+}
+```
+
+### 格式化文件大小
 
 ```JavaScript
 /**
@@ -48,5 +153,41 @@ function formatFileSize(size) {
     units.shift();
   }
   return fileSize.toFixed(1) + units[0];
+}
+```
+
+## 通用 UI 框架处理方法
+
+### 数据处理状态提示
+
+```JavaScript
+// 引用消息提示框
+import { Message } from '@arco-design/web-vue'
+
+/**
+ * 状态处理
+ * @param {String} status 数据状态
+ * @param {String} text 说明文字
+ * @param {Function} callbackFn 回调函数，通常为刷新数据方法
+ * @returns 返回值
+ */
+function handleDataStatusMessage(status: string, text: string, callbackFn?: any) {
+  switch (status) {
+    case 'success':
+      Message.success(text)
+      callbackFn && callbackFn()
+      break;
+    case 'warning':
+      Message.warning(text)
+      callbackFn && callbackFn()
+      break;
+    case 'error':
+      Message.error(text)
+      callbackFn && callbackFn()
+      break;
+    default:
+      Message.info(text)
+      callbackFn && callbackFn()
+  }
 }
 ```

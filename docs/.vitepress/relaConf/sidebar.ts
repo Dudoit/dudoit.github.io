@@ -45,6 +45,10 @@ export const sidebar: DefaultTheme.Sidebar = {
           link: '/knowledge/JavaScript+ES6/JavaScript/javascript-network'
         },
         {
+          text: 'DOM & BOM',
+          link: '/knowledge/JavaScript+ES6/JavaScript/dom-bom'
+        },
+        {
           text: 'JavaScript 应用',
           link: '/knowledge/JavaScript+ES6/JavaScript/javascript-app'
         },

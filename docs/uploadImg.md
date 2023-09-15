@@ -82,3 +82,25 @@
   </a-space>
 </template>
 ```
+
+```JavaScript
+/**
+ * 文件上传
+ * @param file 
+ * @returns 
+ */
+const APIFileUpload = (file: any) => {
+  const authStore = useAuthStore()
+
+  return new Promise(reslove => {
+    axios.post('http://www.qianmoo.top/admin/file/upload', file, {
+      headers: {
+        'Authorization': authStore.$state.token,
+        'Content-Type': `multipart/form-data; boundary=${file._boundary}`
+      }
+    }).then(response => {
+      reslove(response)
+    })
+  })
+}
+```

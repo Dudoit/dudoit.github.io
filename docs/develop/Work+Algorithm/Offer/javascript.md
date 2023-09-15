@@ -178,6 +178,27 @@ XMLHttpRequest 的属性和方法：
 4：完成。已经收到所有响应，可以使用了。
 :::
 
+## instanceof 的原理
+
+判断对象的 <i class="purple-text">原型链</i> 中是否能找到类型的 prototype
+
+```JavaScript
+function myInstanceof(fn, type) {
+  const prototype = type.prototype
+  let fn = fn.__proto__
+
+  while (true) {
+    if (fn === undefined || fn === null) {
+      return false
+    }
+    if (fn === prototype) {
+      return true
+    }
+    fn = fn.__proto__
+  }
+}
+```
+
 ## var、let、const 的区别
 
 - var 的特点
@@ -215,9 +236,13 @@ XMLHttpRequest 的属性和方法：
 
 箭头函数没有原型属性
 
+箭头函数没有 arguments 对象，需要使用剩余参数获取参数列表
+
 ## promise
 
-Promise 是处理异步请求的一种方式
+Promise 是处理异步请求的一种方式，比传统的解决方案（回调函数）更优
+
+Promise 是一个容器，保存着未来才会结束的事件
 
 特点：创建后立即执行；状态一旦改变，不能再次变更
 
@@ -239,5 +264,34 @@ Promise 是处理异步请求的一种方式
 
   any：返回最先成功的结果
 
+### then 方法的第二个回调和 catch 有什么不同
+
+  `then()` 的回调不能捕获第一个回调函数中抛出的错误，`catch()` 可以
 
 ## async/await
+
+async/await 也是异步编程的一种解决方案，它遵循的是 Generator 的语法糖，不需要额外调用即可执行，返回的是 Promise 对象
+
+## class 关键字和 function 的区别
+
+- this
+
+  `function` 可以使用 call、apply、bind 的方式指定它的执行上下文
+
+  `class` 内部做了代理，禁止了这种行为
+
+- constructor
+
+  `function` 中的 `prototype.constructor` 属性指向函数自身
+
+  `class` 中 `constructor` 相当于定义在 `prototype` 上的一个属性
+
+- 重复定义
+
+  `function` 允许重复定义；`class` 不允许重复定义
+
+- 枚举
+
+  `class` 中定义的方法不可用 `Object.keys(Point.prototype)` 枚举到
+
+   `function` 构造器原型方法可被 `Object.keys(Point.prototype)` 枚举到

@@ -13,4 +13,18 @@
 
 扩展性问题：为什么 HTTPS 是安全的？
 
-## 
+## XSS、CSRF
+
+- XSS
+
+  XSS（Cross-Site Scripting，跨站脚本攻击）：它会在 WEB 页面中插入恶意脚本，当用户浏览该页面时，执行这些代码，从而盗取用户信息（Cookie，token）、破坏页面结构、重定向到其他网站。
+
+  XSS 攻击的三种类型：存储型、DOM 型、反射型
+
+  预防方式：尽量不使用 `innerHtml` 插入 HTML 内容；url 参数使用 `encodeURIComponent` 方法转义
+
+- CSRF
+
+  CSRF（Cross-site request forgery，跨站请求伪造）：攻击者诱导受害者进入第三方网站，在第三方网站中，向被攻击网站发送跨站请求。利用受害者在被攻击网站已经获取的注册凭证，绕过后台的用户验证，达到冒充用户对被攻击的网站执行某项操作的目的。
+
+  预防方式：添加验证码；使用 token；Referer 识别
