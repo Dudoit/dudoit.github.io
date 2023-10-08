@@ -142,11 +142,11 @@ export const Develop = {
       link: '/develop/Browser+Network/Browser/',
     },
     {
-      text: '开发优化',
+      text: '开发优化+业务',
       link: '/develop/Performance/'
     },
     {
-      text: '业务+手写+算法',
+      text: '面试+手写+算法',
       link: '/develop/Work+Algorithm/Work/',
     },
   ]

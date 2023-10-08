@@ -43,6 +43,19 @@ array.reduce((pre, cur) => {
 
 ## 字符串
 
+### 随机字符串
+
+```JavaScript
+function randomString(length) {
+  const str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  let result = ''
+  for (let i = length; i > 0; --i) {
+    result += str[Math.floor(Math.random() * str.length)]
+  }
+  return result
+}
+```
+
 ### 字符串反转
 
 ```JavaScript
@@ -103,6 +116,29 @@ function interval(func, delay, times) {
 
 ## 业务
 
+### 时间格式化
+
+```JavaScript
+function dateFormat(fmt, date) {
+  let ret
+  const opt = {
+    'Y+': date.getFullYear().toString(), // 年
+    'm+': (date.getMonth() + 1).toString(), // 月
+    'd+': date.getDate().toString(), // 日
+    'H+': date.getHours().toString(), // 时
+    'M+': date.getMinutes().toString(), // 分
+    'S+': date.getSeconds().toString(), // 秒
+  }
+  for (const k in opt) {
+    ret = new RegExp('(' + k + ')').exec(fmt)
+    if (ret) {
+      fmt = fmt.replace(ret[1], ret[1].length === 1 ? opt[k] : opt[k].padStart(ret[1].length, '0'))
+    }
+  }
+  return fmt
+}
+```
+
 ### 校验手机号
 
 ```JavaScript
@@ -153,6 +189,14 @@ function formatFileSize(size) {
     units.shift();
   }
   return fileSize.toFixed(1) + units[0];
+}
+```
+
+## 是否为外部链接
+
+```JavaScript
+function isExternal(path) {
+  return /^(https?:|mailto:|tel:)/.test(path)
 }
 ```
 

@@ -308,6 +308,14 @@ export const sidebar: DefaultTheme.Sidebar = {
           text: 'JavaScript',
           link: '/develop/Work+Algorithm/Offer/javascript'
         },
+        {
+          text: 'Vue',
+          link: '/develop/Work+Algorithm/Offer/vue'
+        },
+        {
+          text: 'Browser',
+          link: '/develop/Work+Algorithm/Offer/browser'
+        },
       ]
     },
     {

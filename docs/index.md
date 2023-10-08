@@ -24,14 +24,14 @@ hero:
 
 features:
   - icon: 🧊
-    title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    title: Past
+    details: I miss the past
   - icon: 🧊
     title: WEB 前端
     details: 在家乡生活的程序员
   - icon: 🧊
-    title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    title: Forward
+    details: At the same time, I also look forward to the future
 ---
 
 <!-- 自定义组件 -->
