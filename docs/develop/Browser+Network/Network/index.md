@@ -47,3 +47,51 @@
 
 「503 Service Unavailable」表示服务器当前很忙，暂时无法响应客户端，类似“网络服务正忙，请稍后重试”的意思。
 ```
+
+## 强制缓存、协商缓存
+
+- 强制缓存
+
+  控制强制缓存的字段: `Expires` 和 `Cache-Control`
+
+  在 HTTP/1.1 `Cache-Control` 已经代替 `Expires`，所以如果当两者同时存在时，`Cache-Control` 的优先级要大于 `Expires`
+
+  :::info Expires 💡
+  主要原因是 Expires 的值是一个时间的绝对值，例如：`expires: Mon, 16 Apr 2021 07:00:00 GMT`。所以 Expires 这种控制缓存原理采用事件的方式，客户端和服务端会因为某些原因（时区，精度不准确）导致误差的产生
+  :::
+
+  在HTTP/1.1中，`Cache-Control` 是控制网页缓存最重要的规则
+
+  ```
+  public: 所有内容都将被缓存
+  private: 所有内容只有客户端可以缓存（default）
+  no-cache: 客户端缓存内容，但是否使用缓存则需经过协商缓存的验证
+  no-store: 所有内容都不会被缓存
+  max-age=xxx: 缓存内容将在xxx秒后失效
+  ```
+
+- 协商缓存
+
+  <span class="blue-text">强制缓存失效后</span>，浏览器携带缓存标识向服务器发起请求，由服务器决定（根据缓存标识）是否使用缓存
+
+  主要有以下两种情况：
+
+  a> 协商缓存生效，返回 `304`
+
+  b> 协商缓存失效，返回 `200` 和请求结果
+
+  控制协商缓存的字段：`Last-Modified/If-Modified-Since` 和 `Etag/If-None-Match`
+
+  `Last-Modified` 和 `Etag` 是服务端返回给浏览器的字段
+
+  `If-Modified-Since` 和 `Etag/If-None-Match` 则是浏览器传递给服务端的字段
+
+  优先级比较：`Etag` > `Last-Modified`
+
+  **`Last-Modified` - 服务器最后被修改的时间**
+
+  **`Etag` - 资源的唯一标识**
+
+- 总结
+
+  强制缓存优先于协商缓存进行，若强制缓存生效则直接使用缓存，若不生效则进行协商缓存

@@ -10,6 +10,20 @@ import cdnImg from '/.vitepress/components/cdnImg.vue';
 
 除了 `object` 为复杂类型，其他都是基本类型
 
+### 判断数据类型的方法有哪些？
+
+- typeof
+
+  常用来判断基本数据类型，返回值：string、number、boolean、function、undefined、object
+
+  判断变量是否存在：typeof a != 'undefined'
+
+- instanceof
+
+- constructor
+
+- toString.call()
+
 ## 闭包
 
 - 什么是闭包？
@@ -36,7 +50,7 @@ import cdnImg from '/.vitepress/components/cdnImg.vue';
 
   缺点：可能会导致内存泄露，内部变量不被回收
 
-  解决方案：在变量不被使用时，将值设置为 `null`
+  解决方案：在变量不被使用时，将变量的值设置为 `null`
 
 ## 原型 & 原型链
 
@@ -97,39 +111,136 @@ import cdnImg from '/.vitepress/components/cdnImg.vue';
 
 - 通过原型链的方式继承
 
-  缺点：如果包含引用类型的数据，会被所有的实例对象所共享，容易造成修改的混乱
+  ```JavaScript
+  function Parent() {
+    this.name = '水果'
+  }
+
+  function Child() {
+    this.type = '苹果'
+  }
+
+  Child.prototype = new Parent()
+  Child.prototype.constructor = Child
+  ```
+
+  缺点：
+  
+  1. 如果包含引用类型的数据，会被所有的实例对象所共享，容易造成修改的混乱
+
+  2. 无法向父类传递参数
+
 
 - 借用构造函数
 
   ```JavaScript
-  function Student() {
-    Person.call(this)
+  function Parent(name) {
+    this.name = name
   }
 
-  Student.prototype = Person.prototype
+  function Child(name) {
+    Parent.call(this, name)
+    this.type = '苹果'
+  }
+  ```
+
+  缺点：访问不到父类原型对象 `prototype` 上的属性和方法
+
+- 组合继承
+
+  ```JavaScript
+  function Parent(name) {
+    this.name = name
+  }
+  Parent.prototype.getName = function () {
+    return this.name
+  }
+
+  function Child(name) {
+    Parent.call(this, name)
+    this.type = '苹果'
+  }
+
+  Child.prototype = new Parent()
+  Child.prototype.constructor = Child
   ```
 
   缺点：会调用两次父类构造函数，子类中会多出不必要的属性
 
 - 原型式继承
 
+  ```JavaScript
+  const parent = {
+    name: 'parent',
+    friends: [],
+    getName: function () {
+      return this.name
+    }
+  }
+
+  function clone(original) {
+    return Object.create(original)
+  }
+  ```
+
+  缺点：与原型链相同
+
 - 寄生式继承
+
+  和原型式继承一样的，就是多加了一些额外的属性和方法
+
+  ```JavaScript
+  const parent = {
+    name: 'parent',
+    friends: [],
+    getName: function () {
+      return this.name
+    }
+  }
+
+  function clone(original) {
+    const clone = Object.create(original)
+    clone.getFriends = function() {}
+    return clone
+  }
+  ```
+
+  缺点：与原型式相同，没有办法实现函数的复用
 
 - 寄生组合式继承
 
   ```JavaScript
-  function object(o) {
-    function F() {}
-    F.prototype = o
-    return new F()
+  function Parent(name) {
+    this.name = name
   }
 
-  function inheritPrototype(subType, superType) {
-    subType.prototype = object(superType.prototype)
-    subType.prototype.constructor = subType
+  function Child(name) {
+    Parent.call(this, name)
+    this.type = '苹果'
   }
 
-  inheritPrototype(Student, Person)
+  Child.prototype = Object.create(Parent.prototype)
+  Child.prototype.constructor = Child
+  ```
+
+- ES6 类的继承
+
+  ```JavaScript
+  class Parent {
+    constructor(name) {
+      this.name = name
+    }
+    getName() {
+      console.log(this.name);
+    }
+  }
+
+  class Child extends Parent {
+    constructor(name, type) {
+      super(name)
+      this.type = type
+    }
+  }
   ```
 
 ## eventloop
@@ -152,7 +263,7 @@ JavaScript 是单线程的脚本语言，为了防止一个函数的执行时间
 :::info Node.js 和 浏览器的 Event Loop 差异
 1. 实现方式：浏览器由浏览器引擎实现；Node.js 则是由自身环境实现
 2. 事件类型：浏览器处理多种事件，用户交互、网络请求、定时器等；Node 多用来处理网络请求和异步操作，文件操作或数据库查询
-3. 执行上限：浏览器通常会持续执行知道用户关闭页面；Node 默认循环一次就退出，除非有定时器或监听器
+3. 执行上限：浏览器通常会持续执行直到用户关闭页面；Node 默认循环一次就退出，除非有定时器或监听器
 4. 宏任务：Node 中的宏任务又分为 timer 类型、check 类型、close callbacks 类型
 :::
 

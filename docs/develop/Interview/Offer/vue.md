@@ -6,6 +6,26 @@ import cdnImg from '/.vitepress/components/cdnImg.vue';
 
 ## MVVM
 
+  `MVVM` 是 `Model-View-ViewModel` 的缩写，也就是将 `MVC` 中的 `Controller` 演变为 `ViewModel`。
+
+  `Model` 代表 **数据模型**；`View` 代表 **视图组件**；`ViewModel` 是一个同步 `View` 和 `Model` 的对象。
+
+  数据绑定到 `ViewModel` 并自动将数据渲染到页面中，视图变化会通知 `ViewModel` 更新数据。
+
+## SPA
+
+SPA，单页面应用（Sigle Page Application）。是一种 WEB 应用程序的设计模式，就是只有一张 WEB 页面的应用。加载单个 HTML，通过动态加载内容而无需重新加载整个页面。
+
+优势：
+
+用户体验好，SPA 
+
+
+缺点：
+
+1. 由于页面为动态生成，起初为 `<div id="app"></div>` ，对 SEO 并不友好；
+2. 首次加载时间长，容易导致白屏。SPA 需要预加载所有资源，包括 JavaScript、CSS、模板
+
 ## Vue3 和 Vue2 的差异
 
 - **Composition API 和 Option API**
@@ -44,9 +64,9 @@ import cdnImg from '/.vitepress/components/cdnImg.vue';
 
 ## 虚拟 DOM
 
-浏览器中操作 DOM 的代价比较昂贵，频繁操作 DOM 会阐述性能问题
+浏览器中操作 DOM 的代价比较昂贵，频繁操作 DOM 会产生性能问题
 
-虚拟 DOM 的作用是在每一次响应式数据发生变化引起页面重新渲染时，对比更新前后的虚拟 DOM ，找出需要更新的真实 DOM
+虚拟 DOM 的作用是在每一次响应式数据发生变化而引起页面重新渲染时，对比更新前后的虚拟 DOM ，找出需要更新的真实 DOM
 
 https://blog.csdn.net/liuliuliuliumin123/article/details/107943687
 
@@ -112,3 +132,14 @@ index 会随着数组的变化而变化，所以本质上并不能真正地定�
 
 `v-model` 也可以在 自定义组件 上使用，不过需要自定义 `prop` 和 `event`
 
+## setup
+
+### setup 中如何获取组件实例
+
+在 vue2  中， Options API 可以使用 this 来获取组件的实例，但是到现在的 vue3 ，已经被摒弃掉了。在 setup 和其他 Composition API 中没有 this ，但是它提供了一个 getCurrentInstance 来获取当前的实例。
+
+## slot 插槽
+
+- 插槽的作用
+
+  让用户可以扩展组件，更好地 复用组件 和 定制化处理

@@ -22,6 +22,19 @@ export const sidebar: DefaultTheme.Sidebar = {
           link: '/knowledge/HTML+CSS/css-offer'
         },
       ]
+    },
+    {
+      text: 'Canvas',
+      items: [
+        {
+          text: 'Canvas 基础用法',
+          link: '/knowledge/HTML+CSS/canvas'
+        },
+        {
+          text: 'Canvas 应用示例',
+          link: '/knowledge/HTML+CSS/canvas-app'
+        },
+      ]
     }
   ],
   '/knowledge/JavaScript+ES6/': [
@@ -283,17 +296,26 @@ export const sidebar: DefaultTheme.Sidebar = {
       ]
     },
   ],
-  '/develop/Work+Algorithm/': [
+  '/develop/Interview/': [
+    {
+      text: '面试大纲',
+      items: [
+        {
+          text: 'Outline',
+          link: '/develop/Interview/Outline'
+        },
+      ]
+    },
     {
       text: '业务场景',
       items: [
         {
           text: '前端',
-          link: '/develop/Work+Algorithm/Work/'
+          link: '/develop/Interview/Work/'
         },
         {
           text: 'npm',
-          link: '/develop/Work+Algorithm/Work/npm'
+          link: '/develop/Interview/Work/npm'
         },
       ]
     },
@@ -302,19 +324,23 @@ export const sidebar: DefaultTheme.Sidebar = {
       items: [
         {
           text: 'CSS',
-          link: '/develop/Work+Algorithm/Offer/css'
+          link: '/develop/Interview/Offer/css'
         },
         {
           text: 'JavaScript',
-          link: '/develop/Work+Algorithm/Offer/javascript'
+          link: '/develop/Interview/Offer/javascript'
         },
         {
           text: 'Vue',
-          link: '/develop/Work+Algorithm/Offer/vue'
+          link: '/develop/Interview/Offer/vue'
         },
         {
           text: 'Browser',
-          link: '/develop/Work+Algorithm/Offer/browser'
+          link: '/develop/Interview/Offer/browser'
+        },
+        {
+          text: 'Network',
+          link: '/develop/Interview/Offer/network'
         },
       ]
     },
@@ -323,7 +349,7 @@ export const sidebar: DefaultTheme.Sidebar = {
       items: [
         {
           text: '实现',
-          link: '/develop/Work+Algorithm/Code/'
+          link: '/develop/Interview/Code/'
         },
       ]
     },
@@ -332,7 +358,7 @@ export const sidebar: DefaultTheme.Sidebar = {
       items: [
         {
           text: '算法',
-          link: '/develop/Work+Algorithm/webpack'
+          link: '/develop/Interview/algorithm'
         },
       ]
     },

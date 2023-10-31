@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
 const prop = defineProps(["src", "alt"])
-const imgUrl = "https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.4/blog/images/" + prop.src + ".png"
+const imgUrl = "https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.5/blog/images/" + prop.src + ".png"
 </script>
 
 <style>

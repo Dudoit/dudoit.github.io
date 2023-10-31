@@ -146,8 +146,8 @@ export const Develop = {
       link: '/develop/Performance/'
     },
     {
-      text: '面试+手写+算法',
-      link: '/develop/Work+Algorithm/Work/',
+      text: '面试',
+      link: '/develop/Interview/Outline',
     },
   ]
 }
