@@ -2,6 +2,9 @@ sh ./vitepress-starter/deploy.sh
 <!-- 彩票格子：彩票分为格子刮 -->
 <!-- 需调整目录(未使用中文标点): More/Npm -->
 https://www.jianshu.com/p/e63324cd63db
+
+<!-- 百度地图获取IP定位 -->
+https://lbs.qq.com/service/webService/webServiceGuide/webServiceIp
 ## JSON
 
 JSON 可用于做深拷贝

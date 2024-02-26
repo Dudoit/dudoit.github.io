@@ -33,7 +33,7 @@ const prop = defineProps(["navs"])
   font-size: 24px;
   font-weight: 500;
   white-space: pre-wrap;
-  color: rgba(60, 60, 67, 0.75);
+  color: var(--vp-c-text-1);
   margin: 10px 0;
 }
 
@@ -52,7 +52,7 @@ const prop = defineProps(["navs"])
   padding: 24px;
   height: 100%;
   border-radius: 12px;
-  background-color: #f6f6f7;
+  background-color: var(--vp-c-bg-soft);
 }
 
 .nav-info img {
@@ -79,6 +79,6 @@ const prop = defineProps(["navs"])
   line-height: 24px;
   font-size: 14px;
   font-weight: 500;
-  color: rgba(60, 60, 67, 0.75);
+  color: var(--vp-c-text-2);
 }
 </style>

@@ -26,6 +26,12 @@ SPA，单页面应用（Sigle Page Application）。是一种 WEB 应用程序�
 1. 由于页面为动态生成，起初为 `<div id="app"></div>` ，对 SEO 并不友好；
 2. 首次加载时间长，容易导致白屏。SPA 需要预加载所有资源，包括 JavaScript、CSS、模板
 
+## 生命周期
+
+:::info 父子组件的执行顺序
+<span class="blue-text">父组件 beforeCreate -> 父组件 created -> 父组件 beforeMount</span> -> 子组件 beforeCreate -> 子组件 created -> 子组件 beforeMount -> 子组件 mounted -> <span class="blue-text">父组件 mounted</span>
+:::
+
 ## Vue3 和 Vue2 的差异
 
 - **Composition API 和 Option API**

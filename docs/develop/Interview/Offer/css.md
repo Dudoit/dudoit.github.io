@@ -24,7 +24,7 @@ CSS3 规范中要求用单冒号表示伪类，双冒号表示伪元素，主要
 
 重绘：当渲染树中一些元素需要更新属性，仅需要重新绘制<span class="blue-text">元素的外观风格</span>，**而不影响布局**。例如颜色，背景，边框，透明度等。
 
-<p class="purple-text">重绘不一定会导致重排，重排必定会导致重绘</p>
+<p class="p-txt">重绘不一定会导致重排，重排必定会导致重绘</p>
 
 导致重排的一些情况：添加/删除/更新 DOM 节点、移动 DOM 节点、调整窗口大小等
 
@@ -44,11 +44,11 @@ CSS3 规范中要求用单冒号表示伪类，双冒号表示伪元素，主要
 
 我们通常说的盒模型有两种<span class="blue-text">（蓝色字体为内容宽度）</span>：
 
-- 标准盒模型 <i class="purple-text">content-box</i>
+- 标准盒模型 <i class="p-txt">content-box</i>
 
   标准盒模型的尺寸 width = <span class="blue-text">content</span> + padding + border + margin
 
-- 怪异盒模型（IE 盒模型）<i class="purple-text">border-box</i>
+- 怪异盒模型（IE 盒模型）<i class="p-txt">border-box</i>
 
   怪异盒模型的尺寸 width = <span class="blue-text">content + padding + border</span> + margin
 

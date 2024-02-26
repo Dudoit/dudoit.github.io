@@ -20,9 +20,15 @@ import cdnImg from '/.vitepress/components/cdnImg.vue';
 
 - instanceof
 
+  p instanceof Person
+
 - constructor
 
+  "text".constructor === String
+
 - toString.call()
+
+  Object.prototype.toString.call(arr)
 
 ## 闭包
 
@@ -291,21 +297,22 @@ XMLHttpRequest 的属性和方法：
 
 ## instanceof 的原理
 
-判断对象的 <i class="purple-text">原型链</i> 中是否能找到类型的 prototype
+判断对象的 <i class="p-txt">原型链</i> 中是否能找到类型的 prototype
 
 ```JavaScript
-function myInstanceof(fn, type) {
-  const prototype = type.prototype
-  let fn = fn.__proto__
+function myInstanceof(obj, fn) {
+  const prototype = fn.prototype
+  let obj = obj.__proto__
 
   while (true) {
-    if (fn === undefined || fn === null) {
+    if (obj === undefined || obj === null) {
       return false
     }
-    if (fn === prototype) {
+    if (obj === prototype) {
       return true
     }
-    fn = fn.__proto__
+    // 继续向上层查找
+    obj = obj.__proto__
   }
 }
 ```
@@ -341,11 +348,9 @@ function myInstanceof(fn, type) {
 
 ## 箭头函数
 
-箭头函数是匿名函数，不能作为构造函数，不能使用 new
+箭头函数是匿名函数，不能作为构造函数，不能使用 new，因此也没有原型属性
 
 箭头函数的 this 指向定义箭头函数上下文中的 this，任何方法都无法改变它的指向
-
-箭头函数没有原型属性
 
 箭头函数没有 arguments 对象，需要使用剩余参数获取参数列表
 

@@ -1,4 +1,4 @@
-import { Excalidraw, wxMiniProgram } from "./base64"
+import { Excalidraw, wxMiniProgram, weTab } from "./base64"
 
 // 一、首页导航
 // 技术博客
@@ -60,6 +60,24 @@ const OfficialWebsites = {
       link: "https://element-plus.org/zh-CN/",
       iconUrl: "https://element-plus.org/images/element-plus-logo.svg"
     },
+    {
+      title: "Vuetify",
+      describe: "Google 团队研发的 Vue UI 组件库",
+      link: "https://vuetifyjs.com/zh-Hans/",
+      iconUrl: "https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-light-atom.svg"
+    },
+    {
+      title: "Ant Design",
+      describe: "阿里系 UI 组件库",
+      link: "https://ant-design.antgroup.com/index-cn",
+      iconUrl: "https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+    },
+    {
+      title: "Bootstrap",
+      describe: "中文网，非官方",
+      link: "https://www.bootcss.com/",
+      iconUrl: "https://www.bootcss.com/assets/img/navlogo-small.png"
+    },
   ]
 }
 
@@ -91,6 +109,12 @@ const SomeWebsites = {
       link: "https://yiyan.baidu.com/",
       iconUrl: "https://ecmb.bdimg.com/tam-ogel/-338790426_-1324895150_88_88.png"
     },
+    {
+      title: "WeTab",
+      describe: "小组件，大世界",
+      link: "https://www.wetab.link/",
+      iconUrl: weTab
+    },
   ]
 }
 
@@ -101,8 +125,12 @@ export const homeNav = [
 ]
 
 // 二、站内导航
-// 1. 知识清单
 const iconUrl = Symbol("icon-url")
+
+
+/**
+ * 1. 知识清单 - 前端技能自检清单
+ */
 export const Knowledge = {
   text: '知识清单',
   items: [
@@ -134,6 +162,9 @@ export const Knowledge = {
   ]
 }
 
+/**
+ * 2. 开发手册 - 项目开发中的记录
+ */
 export const Develop = {
   text: '开发手册',
   items: [
