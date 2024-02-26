@@ -1,0 +1,1 @@
+import{d as e,o as s,c as n}from"./framework.51846e02.js";const o=["alt"],i=e({__name:"cdnImg",props:["src","alt"],setup(t){const c="https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.5/blog/images/"+t.src+".png";return(a,l)=>(s(),n("img",{class:"cdn-img",src:c,alt:t.alt?t.alt:t.src},null,8,o))}});export{i as _};
