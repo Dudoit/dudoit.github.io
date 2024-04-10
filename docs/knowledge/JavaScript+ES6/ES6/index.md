@@ -1,10 +1,86 @@
 # ES6 基础知识
 
+## 模板字符串
+
+```JavaScript
+const message = `my name is ${name}, number is ${ number * 2 }, height ${ computedHeight() }`
+```
+
+## 函数默认值
+
+```JavaScript
+function s(name = 'dudoit', age = 10) {}
+```
+
+## 函数的剩余参数
+
+```JavaScript
+function s(name, age, ...info) {
+  console.log(name, age) // dudoit 25
+  console.log(info) // [1.78, 130]
+}
+s('dudoit', 25, 1.78, 130)
+```
+
+剩余参数和arguments的区别？
+
+剩余参数只包含没有对应形参的实参，arguments 包含所有传递的实参
+arguments 不是真正的数组，剩余参数是数组可以使用数组的方法
+
+## 展开运算符
+
+```JavaScript
+const names = ['du', 'zhao', 'li']
+const name = 'dudoit'
+
+console.log(...names) // ['du', 'zhao', 'li']
+console.log(...name) // ['d', 'u', 'z', 'h', 'a', 'o', 'l', 'i']
+
+const stu = { name: 'dudoit', age: 18 }
+const obj = { ...stu, height: 1.78 }
+
+// 浅拷贝
+const copyStu = { ...stu }
+```
+
+## 数值的表示
+
+0b 二进制、0O 八进制、0X 十六进制
+
 ## Symbol
 
-> 比如，你使用了一个他人提供的对象，但又想为这个对象添加新的方法（mixin 模式），新方法的名字就有可能与现有方法产生冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是 ES6 引入Symbol的原因
+> 比如冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是 ES6 引入Symbol的原因，你使用了一个他人提供的对象，但又想为这个对象添加新的方法（mixins 模式），新方法的名字就有可能与现有方法产生
 
 Symbol 值不是对象，所以也不能添加属性。它是一种类似于字符串的数据类型
+
+```JavaScript
+const s1 = Symbol()
+const s2 = Symbol()
+
+const obj = {
+  [s1]: "abc",
+  [s2]: "cba"
+}
+
+// 新增属性
+obj[s3] = "ccc"
+
+const s4 = Symbol()
+Object.defineProperty(obj, s4, {
+  enumerable: true,
+  value: 'fff'
+})
+
+// 不能通过 .语法 获取属性值，将得到 undefined
+
+// 使用 Symbol 作为 key 的属性名，Object.keys
+// 可通过 Object.getOwnPropertySymbol(obj) 获取
+
+// 创建两个相同的 symbol
+const s1 = Symbol.for('aaa')
+const s2 = Symbol.for('bbb')
+console.log(s1 === s2) // true
+```
 
 ## Set/WeakSet
 
@@ -99,6 +175,25 @@ WeakSet 结构与 Set 类似，有两个区别：
 ### Map
 
 ### WeakMap
+
+## Object.entries
+
+获取对象的特殊格式
+
+```JavaScript
+const obj = {
+  name: '111',
+  age: 12
+}
+
+const objEntries = Object.entries(obj)
+// [['name', '111']. ['age', 12]]
+
+// 这种结构方便做遍历操作
+objEntries.forEach(item => {
+  console.log(item[0], item[1])
+})
+```
 
 ## 运算符
 
@@ -230,7 +325,7 @@ const p = new Proxy(target, {
 });
 ```
 
-### set()
+### handler.set()
 
 `handler.set()` 方法用于 **设置属性值** 操作
 
@@ -240,4 +335,22 @@ const p = new Proxy(target, {
 const p = new Proxy(target, {
   set: function(target, property, value, receiver) {}
 });
+```
+
+### handler.has(target, key)
+
+in 捕获器
+
+### handler.deleteProperty(target, key)
+
+delete 捕获器
+
+## Reflect
+
+receiver 用于改变原对象中 this 的指向，使其指向代理对象，方便监听内部属性的每一次改变
+
+```JavaScript
+// 执行 Student 函数中的内容，但创建的对象为 Person 对象
+const p1 = Reflect.construct(Student, ['why', 20], Person)
+console.log(p1.__proto__ === Person.prototype)
 ```

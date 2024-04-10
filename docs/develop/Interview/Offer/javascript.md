@@ -6,7 +6,7 @@ import cdnImg from '/.vitepress/components/cdnImg.vue';
 
 ## JavaScript 的内置类型
 
-`string`、`number`、`boolean`、`null`、`undefined`、`bigint`、`symbol`、`object`
+`string`、`number`、`boolean`、`null`、`undefined`、`symbol`、`object`
 
 除了 `object` 为复杂类型，其他都是基本类型
 
@@ -48,9 +48,9 @@ import cdnImg from '/.vitepress/components/cdnImg.vue';
 
 - 闭包的作用及常见用途
 
-  作用：私有化数据，保护变量，延迟变量的生命周期
+  作用：私有化数据，保护变量，延长变量的生命周期
 
-  用途：防抖、节流、Vue 响应式原理
+  用途：防抖、节流、Vue 响应式原理、模块化开发
 
 - 闭包的缺点及解决方案
 
@@ -264,7 +264,7 @@ JavaScript 是单线程的脚本语言，为了防止一个函数的执行时间
 |   任务队列   |               |
 | -------- | ------------- |
 |   宏任务     | 	script（整体代码）、setTimout、setInterval、<br/>setImmediate(node 独有)、requestAnimationFrame(浏览器独有)、<br/>IO、UI render（浏览器独有） |
-|   微任务     | process.nextTick(node 独有)、<br/>Promise.then()、Object.observe、MutationObserver      |
+|   微任务     | process.nextTick(node 独有)、Promise.then()、MutationObserver      |
 
 :::info Node.js 和 浏览器的 Event Loop 差异
 1. 实现方式：浏览器由浏览器引擎实现；Node.js 则是由自身环境实现
@@ -386,7 +386,11 @@ Promise 是一个容器，保存着未来才会结束的事件
 
 ## async/await
 
-async/await 也是异步编程的一种解决方案，它遵循的是 Generator 的语法糖，不需要额外调用即可执行，返回的是 Promise 对象
+async/await 也是异步编程的一种解决方案，真正实现了用同步的方式编写异步代码，遵循 Generator 的语法糖。
+
+一个函数前面加上 async 关键字，意味着该函数返回一个 Promise 对象
+
+await 关键字用于在函数内部等待 Promise 的结果
 
 ## class 关键字和 function 的区别
 

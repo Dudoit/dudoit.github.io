@@ -178,7 +178,7 @@ export const sidebar: DefaultTheme.Sidebar = {
       items: [
         {
           text: 'Webpack',
-          link: '/knowledge/Webpack+Vite/Webpack'
+          link: '/knowledge/Webpack+Vite/Webpack/'
         },
         {
           text: '常见的 loader 配置',

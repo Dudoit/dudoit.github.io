@@ -24,11 +24,18 @@ webpack 是如何确定文件入口的？
 
 事实上，当我们运行 webpack 时，webpack 会查找当前目录下的 src/index.js 作为入口；如果当前项目中没有存在 src/index.js 文件，那么会报错。
 
-我们也可以通过在根目录下创建 webpack.config.js 文件，配置入口和出口
+或者我们可以在运行 webpack 时，通过 entry 命令更改入口文件
+
+```Bash
+npx webpack --entry main.js
+```
+
+【推荐】也可以通过在根目录下创建 `webpack.config.js`，配置入口和出口
 
 ```JavaScript
 const path = require("path");
 
+// CommonJS
 module.exports = {
   entry: "./src/main.js",
   output: {

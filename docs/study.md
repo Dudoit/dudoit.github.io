@@ -1,3 +1,4 @@
+```
 <script lang="ts" setup>
   import { onMounted, ref } from 'vue'
   import { IconThumbUp, IconThumbUpFill, IconStar, IconMessage } from '@arco-design/web-vue/es/icon'
@@ -274,3 +275,4 @@
     background-color: rgb(var(--gray-2));
   }
 </style>
+```

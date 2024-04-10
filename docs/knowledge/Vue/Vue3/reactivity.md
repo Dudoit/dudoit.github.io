@@ -29,6 +29,9 @@ const member = {
   role: 'student'
 }
 const memberProxy = new Proxy(member, {
+  // target - 表示被代理对象
+  // key - 表示当前环节被代理对象的属性
+  // receiver - 表示代理对象
   get: function(target, key, receiver) {
     return Reflect.get(target, key, receiver)
   },
@@ -120,4 +123,75 @@ const memberProxy = new Proxy(member, {
 watchFn(function() {
   console.log(memberProxy.role, "role")
 })
+```
+
+## 响应式原理
+
+Depend 类，用于依赖收集和数据变化时的通知方法
+
+```JavaScript
+// 保存当前需要收集的响应式函数
+let reactiveFn = null
+
+class Depend {
+  constructor() {
+    this.reactiveFns = new Set()
+  }
+
+  // 依赖收集
+  depend(reactiveFn) {
+    if (reactiveFn) {
+      this.reactiveFns.add(reactiveFn)
+    }
+  }
+
+  // 通知
+  notify() {
+    this.reactiveFns.forEach(fn => {
+      fn()
+    })
+  }
+}
+
+// 响应式函数
+function effectFn(fn) {
+  reactiveFn = fn
+  fn()
+  reactiveFn = null
+}
+
+// 获取 depend 方法
+const targetMap = new WeakMap()
+function getDepend(target, key) {
+  let map = targetMap.get(target)
+  if (!map) {
+    map = new Map()
+    targetMap.set(target, map)
+  }
+
+  let depend = map.get(key)
+  if (!depend) {
+    depend = new Depend()
+    map.set(key, depend)
+  }
+  return depend
+}
+
+// reactive - 使用 Proxy 将对象变为可响应式的对象
+function reactive(obj) {
+  return new Proxy(obj, {
+    get: function(target, key, receiver) {
+      const depend = getDepend(target, key)
+      depend.depend()
+      return Reflect.get(target, key, receiver)
+    },
+    set: function(target, key, newVal, receiver) {
+      const res = Reflect.set(target, key, newVal, receiver)
+      const depend = getDepend(target, key)
+      depend.notify()
+      return res
+    }
+  })
+}
+
 ```

@@ -8,6 +8,27 @@ https://v2.cn.vuejs.org/v2/guide/reactivity.html
 
 ![Vue2 data](https://v2.cn.vuejs.org/images/data.png)
 
+## 原理
+
+```JavaScript
+const videoInfo = { id: 1, videoName: '第一节xxx', url: 'https://video.xxx.com/x/xsa/ssss.mp4'}
+
+Object.keys(videoInfo).forEach(key => {
+  let value = videoInfo[key]
+  
+  Object.defineProperty(videoInfo, key, {
+    get: function() {
+      console.log(`访问了 ${key} 属性`)
+      return value
+    },
+    set: function(newValue) {
+      console.log(`设置了 ${key} 属性`)
+      value = newValue
+    }
+  })
+})
+```
+
 ## 对象和数组的限制
 
 - 对象
