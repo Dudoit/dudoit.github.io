@@ -362,5 +362,16 @@ export const sidebar: DefaultTheme.Sidebar = {
         },
       ]
     },
+  ],
+  '/develop/Bug/': [
+    {
+      text: 'Bug',
+      items: [
+        {
+          text: 'Bug',
+          link: '/develop/Bug/Bug'
+        },
+      ]
+    },
   ]
 };

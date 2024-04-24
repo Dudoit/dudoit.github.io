@@ -10,7 +10,7 @@ lastUpdated: true
 hero:
   name: "dudoit"
   text: "PINKY SWEAR"
-  tagline: 弗拉基米尔 | 乐芙兰
+  tagline: A FE Developer Blog
   image:
       src: https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.4/blog/images/home-illustration.png
       alt: home-illustration
