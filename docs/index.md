@@ -12,7 +12,7 @@ hero:
   text: "PINKY SWEAR"
   tagline: A FE Developer Blog
   image:
-      src: https://cdn.jsdelivr.net/gh/Dudoit/resources@blog0.0.4/blog/images/home-illustration.png
+      src: https://vitepress.dev/vitepress-logo-large.webp
       alt: home-illustration
   actions:
     - theme: brand

@@ -35,7 +35,7 @@ Function.prototype.myapply = function (thisBings, args) {
 ## bind
 
 ```JavaScript
-Function.prototype.mybind = function (thisBings, bindArgs) {
+Function.prototype.mybind = function (thisBings, ...bindArgs) {
   thisBings = thisBings ? Object(thisBings) : window
   thisBings.fn = this
 
