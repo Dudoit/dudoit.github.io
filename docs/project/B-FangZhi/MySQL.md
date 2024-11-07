@@ -37,7 +37,22 @@ CREATE TABLE admin_info (
   -- FOREIGN KEY (position_id) REFERENCES position_info(position_id) COMMENT '外键，关联职位信息表'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='管理员信息表';
 
+-- 插入
+INSERT INTO admin_info (username, nickname, avatar, phone, password, gender, department_id, position_id, status, remark, created_at, updated_at, created_by, updated_by)
+VALUES ('johndoe', 'John Doe', 'http://example.com/avatar.jpg', '13812345678', 'hashed_password_example', 'M', 1, 2, 1, '', NOW(), NOW(), 1, NULL);
 
+-- 更新
+UPDATE admin_info
+SET nickname = 'John Updated', status = 0, updated_at = NOW(), updated_by = 1
+WHERE admin_id = 1;
+
+UPDATE admin_info
+SET avatar = 'http://example.com/new_avatar.jpg', gender = 'O', remark = 'Updated profile'
+WHERE admin_id = 2;
+
+-- 删除
+DELETE FROM admin_info
+WHERE admin_id = 3;
 ```
 
 表名：团队信息表
@@ -60,7 +75,7 @@ CREATE TABLE admin_info (
 CREATE TABLE team_info (
   team_id          INT AUTO_INCREMENT PRIMARY KEY   COMMENT '团队唯一标识符，自增',
   team_name        VARCHAR(100) NOT NULL            COMMENT '团队名称，不为空',
-  team_type        VARCHAR(50) NOT NULL             COMMENT '团队类型，不为空',
+  team_type        TINYINT NOT NULL                 COMMENT '团队类型，不为空',
   avatar           VARCHAR(255)                     COMMENT '头像URL',
   leader_id        INT                              COMMENT '负责人ID，关联管理员表',
   status           TINYINT(1) DEFAULT 1             COMMENT '状态：1=正常，0=停用，默认值为1',
@@ -68,8 +83,8 @@ CREATE TABLE team_info (
   created_at       DATETIME                         COMMENT '创建时间',
   updated_at       DATETIME                         COMMENT '更新时间',
   created_by      INT NOT NULL                      COMMENT '创建者，非空',
-  updated_by      INT                               COMMENT '更新者'
-  FOREIGN KEY (leader_id) REFERENCES admin_info(admin_id) COMMENT '外键，关联管理员表，负责人ID'
+  updated_by      INT                               COMMENT '更新者',
+  FOREIGN KEY (leader_id) REFERENCES admin_info(admin_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='团队信息表';
 
 -- 查询团队ID为1负责的品牌
@@ -77,6 +92,23 @@ SELECT b.brand_name
 FROM team_info t
 JOIN brand_info b ON t.team_id = b.team_id
 WHERE t.team_id = 1;
+
+-- 插入
+INSERT INTO team_info (team_name, team_type, avatar, leader_id, status, remark, created_at, updated_at, created_by, updated_by)
+VALUES ('开发团队', '技术', 'http://example.com/team_avatar.jpg', 1, 1, '负责公司产品的开发和维护', NOW(), NOW(), 1, NULL);
+
+-- 更新
+UPDATE team_info
+SET team_name = '技术研发团队', team_type = '技术', avatar = 'http://example.com/new_avatar.jpg', updated_at = NOW(), updated_by = 1
+WHERE team_id = 1;
+
+UPDATE team_info
+SET status = 0, updated_at = NOW(), updated_by = 1
+WHERE team_id = 2;
+
+-- 删除
+DELETE FROM team_info
+WHERE team_id = 3;
 
 ```
 
@@ -105,8 +137,8 @@ CREATE TABLE brand_info (
   created_at   DATETIME                         COMMENT '创建时间',
   updated_at   DATETIME                         COMMENT '更新时间',
   created_by   INT NOT NULL                     COMMENT '创建者，非空',
-  updated_by   INT                              COMMENT '更新者'
-  FOREIGN KEY (team_id) REFERENCES team_info(team_id) COMMENT '外键，关联团队信息表'
+  updated_by   INT                              COMMENT '更新者',
+  FOREIGN KEY (team_id) REFERENCES team_info(team_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='品牌信息表';
 ```
 
