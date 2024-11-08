@@ -131,9 +131,9 @@ WHERE team_id = 3;
 -- 品牌信息表
 CREATE TABLE brand_info (
   brand_id     INT AUTO_INCREMENT PRIMARY KEY   COMMENT '品牌唯一标识符，自增',
-  brand_name   VARCHAR(100) NOT NULL            COMMENT '品牌名称，不能为空',
+  brand_name   VARCHAR(100) NOT NULL            COMMENT '品牌名称，非空',
   team_id      INT                              COMMENT '团队ID，关联团队信息表',
-  remark       TEXT                             COMMENT '备注',
+  remark       VARCHAR(100)                     COMMENT '备注',
   created_at   DATETIME                         COMMENT '创建时间',
   updated_at   DATETIME                         COMMENT '更新时间',
   created_by   INT NOT NULL                     COMMENT '创建者，非空',
@@ -146,18 +146,19 @@ CREATE TABLE brand_info (
 
 -- 课程信息表
 CREATE TABLE course_info (
-  course_id     INT AUTO_INCREMENT PRIMARY KEY  COMMENT '课程唯一标识符，自增',
-  course_name   VARCHAR(100) NOT NULL           COMMENT '课程名称，非空',
-  description   VARCHAR(150)                    COMMENT '课程描述',
-  cover         VARCHAR(255)                    COMMENT '课程封面URL',
-  year          SMALLINT UNSIGNED NOT NULL      COMMENT '课程年份，非空',
-  status        TINYINT(1) DEFAULT 1            COMMENT '状态：1=正常，0=停用，默认值为1',
-  sort          INT DEFAULT 0                   COMMENT '排序，默认值为0',
-  remark        TEXT                            COMMENT '备注',
-  created_at    DATETIME                        COMMENT '创建时间',
-  updated_at    DATETIME                        COMMENT '更新时间',
-  created_by    INT NOT NULL                    COMMENT '创建者，非空',
-  updated_by    INT                             COMMENT '更新者'
+  course_id      INT AUTO_INCREMENT PRIMARY KEY  COMMENT '课程唯一标识符，自增',
+  course_name    VARCHAR(100) NOT NULL           COMMENT '课程名称，非空',
+  description    VARCHAR(150)                    COMMENT '课程描述',
+  cover          VARCHAR(255)                    COMMENT '课程封面URL',
+  year           SMALLINT UNSIGNED NOT NULL      COMMENT '课程年份，非空',
+  chapter_count  INT DEFAULT 0                   COMMENT '章节数，默认值为0',
+  status         TINYINT(1) DEFAULT 1            COMMENT '状态：1=正常，0=停用，默认值为1',
+  sort           INT DEFAULT 0                   COMMENT '排序，默认值为0',
+  remark         VARCHAR(100)                    COMMENT '备注',
+  created_at     DATETIME                        COMMENT '创建时间',
+  updated_at     DATETIME                        COMMENT '更新时间',
+  created_by     INT NOT NULL                    COMMENT '创建者，非空',
+  updated_by     INT                             COMMENT '更新者'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课程信息表';
 ```
 
@@ -168,10 +169,81 @@ CREATE TABLE brand_course_relation (
   brand_id     INT    COMMENT '品牌ID，关联品牌信息表',
   course_id    INT    COMMENT '课程ID，关联课程信息表',
   PRIMARY KEY (brand_id, course_id),
-  FOREIGN KEY (brand_id) REFERENCES brand_info(brand_id) COMMENT '外键，关联品牌信息表',
-  FOREIGN KEY (course_id) REFERENCES course_info(course_id) COMMENT '外键，关联课程信息表'
+  FOREIGN KEY (brand_id) REFERENCES brand_info(brand_id),
+  FOREIGN KEY (course_id) REFERENCES course_info(course_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='品牌与课程关联表';
 ```
+
+表名：章节表
+字段信息：
+章节唯一标识符
+章节名
+课时数
+年份
+所属课程
+状态，正常1，停用01
+备注
+排序
+创建时间
+更新时间
+创建者
+更新者
+
+表名：课时表
+字段信息：
+课时唯一标识符
+课时名
+视频ID
+视频时长
+所属课程
+所属章节
+状态，正常1，停用01
+备注
+排序
+创建时间
+更新时间
+创建者
+更新者
+
+```SQL
+CREATE TABLE chapter_info (
+  chapter_id     INT AUTO_INCREMENT PRIMARY KEY  COMMENT '章节唯一标识符，自增',
+  chapter_name   VARCHAR(255) NOT NULL           COMMENT '章节名称，不能为空',
+  lesson_count   INT DEFAULT 0                   COMMENT '课时数，默认值为0',
+  year           INT UNSIGNED                    COMMENT '章节所属年份，非负整数',
+  course_id      INT                             COMMENT '所属课程ID，关联课程信息表',
+  status         TINYINT(1) DEFAULT 1            COMMENT '章节状态：1=正常，0=停用，默认值为1',
+  remark         VARCHAR(50)                     COMMENT '备注',
+  sort           INT DEFAULT 0                   COMMENT '排序，默认值为0',
+  created_at     DATETIME                        COMMENT '创建时间',
+  updated_at     DATETIME                        COMMENT '更新时间',
+  created_by     INT NOT NULL                    COMMENT '创建者，非空',
+  updated_by     INT                             COMMENT '更新者'
+  FOREIGN KEY (course_id) REFERENCES course_info(course_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='章节信息表';
+```
+
+```SQL
+CREATE TABLE lesson_info (
+  lesson_id       INT AUTO_INCREMENT PRIMARY KEY  COMMENT '课时唯一标识符，自增',
+  lesson_name     VARCHAR(255) NOT NULL           COMMENT '课时名称，不能为空',
+  vid             VARCHAR(150)                    COMMENT '阿里云视频ID',
+  video_duration  INT                             COMMENT '视频时长（秒）',
+  course_id       INT                             COMMENT '所属课程ID，关联课程信息表',
+  chapter_id      INT                             COMMENT '所属章节ID，关联章节信息表',
+  status          TINYINT(1) DEFAULT 1            COMMENT '课时状态：1=正常，0=停用，默认值为1',
+  remark          VARCHAR(50)                     COMMENT '备注',
+  sort            INT DEFAULT 0                   COMMENT '排序，默认值为0',
+  created_at      DATETIME                        COMMENT '创建时间',
+  updated_at      DATETIME                        COMMENT '更新时间',
+  created_by      INT NOT NULL                    COMMENT '创建者，非空',
+  updated_by      INT                             COMMENT '更新者'
+  FOREIGN KEY (course_id) REFERENCES course_info(course_id),
+  FOREIGN KEY (chapter_id) REFERENCES chapter_info(chapter_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课时信息表';
+
+```
+
 
 表名：讲义资料表
 字段信息：
@@ -196,18 +268,18 @@ CREATE TABLE handout_info (
   handout_id     INT AUTO_INCREMENT PRIMARY KEY   COMMENT '讲义唯一标识符，自增',
   handout_name   VARCHAR(150) NOT NULL            COMMENT '讲义名称，非空',
   handout_url    VARCHAR(255) NOT NULL            COMMENT '讲义文件存放地址或URL，非空',
-  file_format    VARCHAR(50)                      COMMENT '讲义文件格式（如PDF、PPT、Word等）',
+  file_format    VARCHAR(20)                      COMMENT '讲义文件格式（如PDF、PPT、Word等）',
   file_size      INT UNSIGNED                     COMMENT '讲义文件大小（字节）',
   year           SMALLINT UNSIGNED                COMMENT '年份',
   course_id      INT                              COMMENT '所属课程ID',
   status         TINYINT(1) DEFAULT 1             COMMENT '状态：1=正常，0=停用，默认值为1',
-  remark         TEXT                             COMMENT '备注',
-  sort_order     INT DEFAULT 0                    COMMENT '排序，默认值为0',
+  remark         VARCHAR(50)                      COMMENT '备注',
+  sort           INT DEFAULT 0                    COMMENT '排序，默认值为0',
   created_at     DATETIME                         COMMENT '创建时间',
   updated_at     DATETIME                         COMMENT '更新时间',
   created_by     INT NOT NULL                     COMMENT '创建者，非空',
-  updated_by     INT                              COMMENT '更新者'
-  FOREIGN KEY (course_id) REFERENCES course_info(course_id) COMMENT '外键，关联课程信息表'
+  updated_by     INT                              COMMENT '更新者',
+  FOREIGN KEY (course_id) REFERENCES course_info(course_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='讲义资料表';
 
 -- 查询某个课程的所有讲义
@@ -284,12 +356,14 @@ WHERE
 
 ```
 
-表名：章节表
+
+表名：试卷信息表
 字段信息：
-章节唯一标识符
-章节名
-课时数
-年份
+试卷唯一标识符
+试卷标题
+试卷类型
+试卷年份
+题目数量
 所属课程
 状态，正常1，停用01
 备注
@@ -298,58 +372,91 @@ WHERE
 更新时间
 创建者
 更新者
-
-表名：课时表
-字段信息：
-课时唯一标识符
-课时名
-视频ID
-视频时长
-所属课程
-所属章节
-状态，正常1，停用01
-备注
-排序
-创建时间
-更新时间
-创建者
-更新者
-
 ```SQL
-CREATE TABLE chapter_info (
-  chapter_id     INT AUTO_INCREMENT PRIMARY KEY COMMENT '章节唯一标识符，自增',
-  chapter_name   VARCHAR(255) NOT NULL COMMENT '章节名称，不能为空',
-  lesson_count   INT DEFAULT 0 COMMENT '课时数，默认值为0',
-  year           INT UNSIGNED COMMENT '章节所属年份，非负整数',
-  course_id      INT COMMENT '所属课程ID，关联课程信息表',
-  status         TINYINT(1) DEFAULT 1 COMMENT '章节状态：1=正常，0=停用，默认值为1',
-  remark         TEXT COMMENT '备注，可空',
-  sort_order     INT DEFAULT 0 COMMENT '排序字段，表示章节的展示顺序，默认值为0',
-  created_at     DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间，默认当前时间',
-  updated_at     DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间，默认当前时间，更新时自动修改',
-  created_by     VARCHAR(50) NOT NULL COMMENT '创建者，不为空',
-  updated_by     VARCHAR(50) COMMENT '更新者，可空',
-  FOREIGN KEY (course_id) REFERENCES course_info(course_id) COMMENT '外键，关联课程信息表'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='章节信息表';
+CREATE TABLE exam_info (
+  exam_id         INT AUTO_INCREMENT PRIMARY KEY  COMMENT '试卷唯一标识符，自增',
+  exam_title      VARCHAR(255) NOT NULL           COMMENT '试卷标题，非空',
+  exam_type       VARCHAR(50) NOT NULL            COMMENT '试卷类型，非空',
+  year            INT UNSIGNED                    COMMENT '试卷年份',
+  question_count  INT DEFAULT 0                   COMMENT '题目数量，默认值为0',
+  course_id       INT                             COMMENT '所属课程ID',
+  status          TINYINT(1) DEFAULT 1            COMMENT '状态：1=正常，0=停用，默认值为1',
+  remark          VARCHAR(50)                     COMMENT '备注',
+  sort            INT DEFAULT 0                   COMMENT '排序，默认值为0',
+  created_at      DATETIME                        COMMENT '创建时间',
+  updated_at      DATETIME                        COMMENT '更新时间',
+  created_by      INT NOT NULL                    COMMENT '创建者，非空',
+  updated_by      INT                             COMMENT '更新者',
+  FOREIGN KEY (course_id) REFERENCES course_info(course_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='试卷信息表';
 ```
 
-```SQL
-CREATE TABLE lesson_info (
-    lesson_id      INT AUTO_INCREMENT PRIMARY KEY COMMENT '课时唯一标识符，自增',
-    lesson_name    VARCHAR(255) NOT NULL COMMENT '课时名称，不能为空',
-    video_id       INT COMMENT '视频ID，关联视频表',
-    video_duration INT COMMENT '视频时长（秒）',
-    course_id      INT COMMENT '所属课程ID，关联课程信息表',
-    chapter_id     INT COMMENT '所属章节ID，关联章节信息表',
-    status         TINYINT(1) DEFAULT 1 COMMENT '课时状态：1=正常，0=停用，默认值为1',
-    remark         TEXT COMMENT '备注，可空',
-    sort_order     INT DEFAULT 0 COMMENT '排序字段，表示课时的展示顺序，默认值为0',
-    created_at     DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间，默认当前时间',
-    updated_at     DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间，默认当前时间，更新时自动修改',
-    created_by     VARCHAR(50) NOT NULL COMMENT '创建者，不为空',
-    updated_by     VARCHAR(50) COMMENT '更新者，可空',
-    FOREIGN KEY (course_id) REFERENCES course_info(course_id) COMMENT '外键，关联课程信息表',
-    FOREIGN KEY (chapter_id) REFERENCES chapter_info(chapter_id) COMMENT '外键，关联章节信息表'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课时信息表';
+表名：试题信息表
+字段信息：
+试题唯一标识符
+试题内容
+试题类型
+选项
+答案
+解析
+分值
+所属试卷
+状态，正常1，停用01
+备注
+排序
+创建时间
+更新时间
+创建者
+更新者
 
+```SQL
+CREATE TABLE question_info (
+  question_id    INT AUTO_INCREMENT PRIMARY KEY   COMMENT '试题唯一标识符，自增',
+  content        TEXT NOT NULL                    COMMENT '试题内容，非空',
+  question_type  TINYINT UNSIGNED NOT NULL        COMMENT '试题类型，非空',
+  options        JSON                             COMMENT '选项，数组存储',
+  answer         JSON NOT NULL                    COMMENT '答案，非空',
+  analysis       TEXT                             COMMENT '解析',
+  score          DECIMAL(4,1) NOT NULL            COMMENT '分值',
+  exam_id        INT                              COMMENT '所属试卷ID',
+  status         TINYINT(1) DEFAULT 1             COMMENT '状态：1=正常，0=停用，默认值为1',
+  remark         VARCHAR(50)                      COMMENT '备注',
+  sort           INT DEFAULT 0                    COMMENT '排序，默认值为0',
+  created_at     DATETIME                         COMMENT '创建时间',
+  updated_at     DATETIME                         COMMENT '更新时间',
+  created_by     INT NOT NULL                     COMMENT '创建者，非空',
+  updated_by     INT                              COMMENT '更新者',
+  FOREIGN KEY (exam_id) REFERENCES exam_info(exam_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='试题信息表';
+
+```
+
+表名：学生信息表（后台）
+字段信息：
+学生唯一标识符
+手机号
+课程权限
+登录设备
+渠道
+状态，正常1，停用0
+备注
+创建时间
+更新时间
+创建者
+更新者
+
+```SQL
+CREATE TABLE student_b_info (
+  student_id   INT AUTO_INCREMENT PRIMARY KEY  COMMENT '学生唯一标识符，自增',
+  phone        CHAR(11) UNIQUE NOT NULL        COMMENT '手机号',
+  permissions  JSON                            COMMENT '课程权限，以JSON格式存储',
+  devices      JSON                            COMMENT '设备信息，以JSON格式存储',
+  channel      TINYINT(1) UNSIGNED             COMMENT '渠道：1=开课，2=自行注册',
+  status       TINYINT(1) DEFAULT 1            COMMENT '状态：1=正常，0=停用',
+  remark       VARCHAR(50)                     COMMENT '备注',
+  created_at   DATETIME                        COMMENT '创建时间',
+  updated_at   DATETIME                        COMMENT '更新时间',
+  created_by   INT NOT NULL                    COMMENT '创建者，非空',
+  updated_by   INT                             COMMENT '更新者',
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='学生信息表（后台）';
 ```
