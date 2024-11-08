@@ -218,7 +218,7 @@ CREATE TABLE chapter_info (
   created_at     DATETIME                        COMMENT '创建时间',
   updated_at     DATETIME                        COMMENT '更新时间',
   created_by     INT NOT NULL                    COMMENT '创建者，非空',
-  updated_by     INT                             COMMENT '更新者'
+  updated_by     INT                             COMMENT '更新者',
   FOREIGN KEY (course_id) REFERENCES course_info(course_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='章节信息表';
 ```
@@ -237,7 +237,7 @@ CREATE TABLE lesson_info (
   created_at      DATETIME                        COMMENT '创建时间',
   updated_at      DATETIME                        COMMENT '更新时间',
   created_by      INT NOT NULL                    COMMENT '创建者，非空',
-  updated_by      INT                             COMMENT '更新者'
+  updated_by      INT                             COMMENT '更新者',
   FOREIGN KEY (course_id) REFERENCES course_info(course_id),
   FOREIGN KEY (chapter_id) REFERENCES chapter_info(chapter_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课时信息表';
