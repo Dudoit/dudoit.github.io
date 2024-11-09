@@ -176,3 +176,12 @@ SELECT * FROM table_name ORDER BY age DESC;
 SELECT age, COUNT(*) AS count FROM table_name GROUP BY age;
 ```
 
+
+
+```SQL
+-- 查看索引
+SHOW INDEX FROM table_name;
+
+-- 删除索引
+DROP INDEX index_name ON table_name;
+```
