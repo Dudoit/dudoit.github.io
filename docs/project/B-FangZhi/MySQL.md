@@ -460,3 +460,15 @@ CREATE TABLE student_b_info (
   updated_by   INT                             COMMENT '更新者',
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='学生信息表（后台）';
 ```
+
+@PostMapping("/login")
+public Result<StudentLoginVO> login(@RequestBody @Validated StudentLoginDTO studentLoginDTO) {
+  StudentLoginVO studentLoginVO = studentService.login(studentLoginDTO);
+  return Result.success(studentLoginVO);
+}
+
+@PostMapping
+public Result<Void> addStudent(@RequestBody @Validated StudentDTO studentDTO) {
+    studentService.add(studentDTO);
+    return Result.success();
+}

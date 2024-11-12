@@ -72,6 +72,20 @@ IP地址
 创建时间
 
 
+```SQL
+CREATE TABLE watch_lesson_records (
+  record_id         INT AUTO_INCREMENT PRIMARY KEY  COMMENT '课时观看记录唯一标识符',
+  student_id        INT                             COMMENT '学生ID',
+  course_id         INT                             COMMENT '课程ID',
+  chapter_id        INT                             COMMENT '章节ID',
+  lesson_id         INT                             COMMENT '课时ID',
+  watch_duration    INT                             COMMENT '观看时长',
+  watched_at        DATETIME                        COMMENT '学习时间',
+  completed         BOOLEAN DEFAULT FALSE           COMMENT '是否观看完成',
+  INDEX (student_id, course_id, chapter_id, lesson_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课时_观看记录表';
+```
+
 
 表名：试题_错题表
 字段信息：
@@ -82,7 +96,7 @@ IP地址
 试题所属课程
 创建时间
 ```SQL
-CREATE TABLE question_wrong_record (
+CREATE TABLE question_wrong_records (
   record_id       INT AUTO_INCREMENT PRIMARY KEY  COMMENT '错题记录唯一标识符',
   student_id      INT NOT NULL                    COMMENT '学生唯一标识符，关联学生信息表',
   question_id     INT NOT NULL                    COMMENT '试题ID',
@@ -108,7 +122,7 @@ CREATE TABLE question_wrong_record (
 试题所属课程
 创建时间
 ```SQL
-CREATE TABLE question_collect_record (
+CREATE TABLE question_collect_records (
   collect_id    INT AUTO_INCREMENT PRIMARY KEY  COMMENT '收藏记录唯一标识符',
   student_id    INT NOT NULL                    COMMENT '学生唯一标识符，关联学生信息表',
   question_id   INT NOT NULL                    COMMENT '试题ID',
