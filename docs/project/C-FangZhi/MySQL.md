@@ -80,10 +80,56 @@ CREATE TABLE watch_lesson_records (
   chapter_id        INT                             COMMENT '章节ID',
   lesson_id         INT                             COMMENT '课时ID',
   watch_duration    INT                             COMMENT '观看时长',
-  watched_at        DATETIME                        COMMENT '学习时间',
-  completed         BOOLEAN DEFAULT FALSE           COMMENT '是否观看完成',
+  completed         TINYINT(1) DEFAULT 0            COMMENT '是否观看完成',
+  watched_record    JSON                            COMMENT '学习时间',
+  updated_at        DATETIME                        COMMENT '最后一次学习时间',
   INDEX (student_id, course_id, chapter_id, lesson_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课时_观看记录表';
+```
+
+课时记录逻辑：
+1. 验证参数有效性
+2. 获取用户ID，查询是否有过观看记录
+3. -> 有，更新watch_duration、completed、watched_record、updated_at
+4. -> 没有，新建记录
+
+```JAVA
+public void saveLessonProgress(Long lessonId, Integer watchDuration) {
+
+  // 1、验证是否为有效值：课时Id & 时间
+  if (lessonId == null || watchDuration == null || watchDuration < 0) {
+      throw new StatusErrorException(MessageConstant.PARAMS_ERROR);
+  }
+  Lesson lesson = courseMapper.getLesson(lessonId);
+  if (lesson == null) {
+      throw new NotFoundException(MessageConstant.LESSON_STATUS_ERROR);
+  }
+  
+  // 2、创建/更新 LessonProgress
+  // 2.1 查询是否有过学习记录
+  Long currentId = BaseContext.getCurrentId();
+  LessonProgress lessonProgress = courseMapper.getLessonProgress(lessonId, currentId);
+  if (lessonProgress == null) {
+      // 2.2 没有记录: 构建 LessonProgress 对象
+      lessonProgress = new LessonProgress();
+      lessonProgress.setStudentId(currentId);
+      lessonProgress.setCourseId(lesson.getCourseId());
+      lessonProgress.setChapterId(lesson.getChapterId());
+      lessonProgress.setLessonId(lessonId);
+      lessonProgress.setWatchDuration(watchDuration);
+      lessonProgress.setUpdatedAt(LocalDateTime.now());
+      lessonProgress.setWatchedRecord(null);
+      lessonProgress.setCompleted(isCompleted(watchDuration, lesson.getVideoDuration()));
+  } else {
+      // 2.2 有记录: 更新 LessonProgress
+      lessonProgress.getCompleted();
+      lessonProgress.setWatchDuration(watchDuration);
+      lessonProgress.setUpdatedAt(LocalDateTime.now());
+  }
+
+  // 4、保存课时进度
+  courseMapper.saveLessonProgress(lessonProgress);
+}
 ```
 
 

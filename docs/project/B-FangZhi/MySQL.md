@@ -472,3 +472,23 @@ public Result<Void> addStudent(@RequestBody @Validated StudentDTO studentDTO) {
     studentService.add(studentDTO);
     return Result.success();
 }
+
+
+```SQL
+SELECT 
+  ch.chapter_id,                   -- 章节ID
+  ch.chapter_name,        -- 章节标题
+  COUNT(l.lesson_id) AS total_lessons,  -- 该章节下所有课时的数量
+  COUNT(CASE WHEN wlr.completed = 1 THEN 1 END) AS completed_lessons  -- 学生完成的课时数量
+FROM 
+  b_fangzhi.chapter_info ch  -- 在第一个数据库中的章节表
+JOIN 
+  b_fangzhi.lesson_info l ON ch.chapter_id = l.chapter_id  -- 连接章节与课时
+LEFT JOIN 
+  watch_lesson_records wlr ON l.lesson_id = wlr.lesson_id AND wlr.student_id = 1
+WHERE 
+  ch.chapter_id = 1  -- 过滤章节ID
+GROUP BY 
+  ch.chapter_id;  -- 按章节分组
+
+```
