@@ -492,3 +492,29 @@ GROUP BY
   ch.chapter_id;  -- 按章节分组
 
 ```
+
+
+
+表名：敏感登录日志表
+字段信息：
+日志唯一标识符
+学生ID
+手机号
+敏感类型
+IP
+平台信息
+设备信息
+当日登录次数
+创建时间
+```SQL
+CREATE TABLE abnormal_login_records (
+  record_id           INT AUTO_INCREMENT PRIMARY KEY  COMMENT '敏感登录日志唯一标识符',
+  phone               CHAR(11)                        COMMENT '手机号',
+  abnormal_type       TINYINT(1)                      COMMENT '敏感类型：1=IP异常，2=登录次数超出异常',
+  ip                  VARCHAR(20)                     COMMENT 'IP地址',
+  platfrom            VARCHAR(50)                     COMMENT '平台信息',
+  device              VARCHAR(150)                    COMMENT '设备信息',
+  daily_login_times   TINYINT UNSIGNED                COMMENT '当日登录次数',
+  created_at          DATETIME                        COMMENT '创建时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='登录日志表';
+```

@@ -5,6 +5,7 @@ material.xxxx.com 资料讲义
 
 assets.xxx.com 图片/图标/字体文件
 
+link.xxx.com 外部链接
 
 ## 获取课时列表
 
@@ -65,24 +66,100 @@ SELECT
   li.cover,
   li.vid,
   li.video_duration AS duration,
-  COALESCE(wr.watch_duration, 0) AS watchDuration,
+  COALESCE(wlr.watch_duration, 0) AS watchDuration,
   CASE
-    WHEN wr.updated_at = (
-      SELECT MAX(wr2.updated_at)
-      FROM watch_lesson_records AS wr2
-      WHERE wr2.student_id = wr.student_id
-      AND wr2.chapter_id = li.chapter_id
+    WHEN wlr.updated_at = (
+      SELECT MAX(wlr2.updated_at)
+      FROM watch_lesson_records AS wlr2
+      WHERE wlr2.student_id = wlr.student_id
+      AND wlr2.chapter_id = li.chapter_id
     ) THEN true
     ELSE false
   END AS recently,
-  wr.completed
+  wlr.completed
 FROM
-  lesson_info AS li
+   b_fangzhi.lesson_info AS li
 LEFT JOIN
-  watch_lesson_records AS wr ON li.lesson_id = wr.lesson_id
-  AND wr.student_id = {student_id}  -- 填写学生ID
+  c_fangzhi.watch_lesson_records AS wlr ON li.lesson_id = wlr.lesson_id
+  AND wlr.student_id = {student_id}
 WHERE
-  li.course_id = {course_id}  -- 填写课程ID
+  li.chapter_id = {chapter_id}
 ORDER BY
   li.chapter_id, li.sort;
+```
+
+```
+Platfrom-Tag
+平台类型：WEB、APP
+平台版本：Version(1.0.0)
+示例：WEB | 1.0.2
+
+Device-Tag
+设备类型：PC、PHONE、PAD
+设备系统：IOS
+设备型号：iPhone13(15.5)
+示例：PC | IOS | MacBookAir(16.0)
+
+{
+  PC: "",
+  PHONE: "",
+  PAD: ""
+}
+```
+
+## 用户登录逻辑
+
+1. 验证手机号有效性
+2. 通过 code 判断登录方式密码或验证码登录
+
+```
+-> 密码登录
+
+1. 是否存在账号。没有，返回该账号未注册。有，则向下
+2. 验证账号状态是否正常，处于未注销或停用状态。未注销或停用，向下。
+3. 验证密码正确
+4. 判断登录日志
+    如果和上次登录的IP不同，记录为一次敏感账号日志。
+    如果当日登录数超过3次，记录为一次敏感账号日志。
+    超过5次，停用账号（预防爆破登录）。
+5. 记录当前登录日志
+5. 返回用户数据
+```
+
+```
+-> 验证码登录
+
+1. 是否存在账号。没有，注册账号。有，则向下
+2. 验证账号状态是否正常，处于未注销状态。未注销，向下。
+3. 验证验证码正确
+4. 获取设备类型及登录日志，判断账号异常
+    如果和上次登录的IP不同，记录为一次敏感账号日志。
+    如果当日登录数超过3次，记录为一次敏感账号日志。
+    超过5次，停用账号（预防爆破登录）。
+5. 记录当前登录日志
+5. 返回用户数据
+```
+
+## 账号注销逻辑
+
+1. C端和B端账号状态置为0
+2. 清除Redis中Token数据
+
+
+数据格式
+```JSON
+[
+  {
+    examsType: 1
+    examsTypeStr: "章节练习"
+    examsList: [
+      {
+        examId: 1,
+        examTitle: "",
+        questionCount: 55,
+        answerQuestionCount: 16,
+      }
+    ]
+  }
+]
 ```
