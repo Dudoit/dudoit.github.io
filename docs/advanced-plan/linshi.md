@@ -53,36 +53,38 @@
 </script>
 
 
-<v-card elevation="10" >
-  <v-card-item>
+<v-col cols="4">
+  <v-card elevation="10 ticket" >
+    <v-card-item>
       <v-card-title class="text-h5">查询结果</v-card-title>
-      <v-card-subtitle class="text-subtitle-1 textSecondary">Search Result</v-card-subtitle>
-      <v-row>
-          <v-col cols="6" sm="6" class="d-flex">
-              <div class="d-flex align-center mt-md-6 mt-3">
-                  <v-avatar class="rounded-md bg-lightwarning text-warning">
-                      <GridDotsIcon size="22" />
-                  </v-avatar>
-                  <div class="pl-4">
-                      <h6 class="text-subtitle-1 textSecondary mb-1">敏感词个数</h6>
-                      <h3 class="text-h6">18</h3>
-                  </div>
-              </div>
-          </v-col>
-          <!-- <v-col cols="6" sm="6" class="d-flex justify-lg-start justify-end">
-              <div class="d-flex align-center mt-md-6 mt-3">
-                  <v-avatar class="rounded-md bg-lightsecondary text-secondary">
-                      <GridDotsIcon size="22" />
-                  </v-avatar>
-                  <div class="pl-4">
-                      <h6 class="text-subtitle-1 textSecondary mb-1">平均</h6>
-                      <h3 class="text-h6">$8,296</h3>
-                  </div>
-              </div>
-          </v-col> -->
-      </v-row>
-  </v-card-item>
-</v-card>
+        <v-card-subtitle class="text-subtitle-1 textSecondary">Search Result</v-card-subtitle>
+        <v-row>
+            <v-col cols="6" sm="6" class="d-flex">
+                <div class="d-flex align-center mt-md-6 mt-3">
+                    <v-avatar class="rounded-md bg-lightwarning text-warning">
+                        <GridDotsIcon size="22" />
+                    </v-avatar>
+                    <div class="pl-4">
+                        <h6 class="text-subtitle-1 textSecondary mb-1">敏感词个数</h6>
+                        <h3 class="text-h6">18</h3>
+                    </div>
+                </div>
+            </v-col>
+            <v-col cols="6" sm="6" class="d-flex justify-lg-start justify-end">
+                <div class="d-flex align-center mt-md-6 mt-3">
+                    <v-avatar class="rounded-md bg-lightsecondary text-secondary">
+                        <GridDotsIcon size="22" />
+                    </v-avatar>
+                    <div class="pl-4">
+                        <h6 class="text-subtitle-1 textSecondary mb-1">词库个数</h6>
+                        <h3 class="text-h6">6</h3>
+                    </div>
+                </div>
+            </v-col>
+        </v-row>
+    </v-card-item>
+  </v-card>
+</v-col>
 
 <v-col cols="12">
   <p class="text-body-2">本站提供的检测结果仅供用户参考，不构成任何法律意见或对广告合规性的保证，不能作为法律依据</p>
