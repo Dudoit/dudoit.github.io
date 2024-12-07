@@ -11,6 +11,8 @@
   const totalWordsCount = ref(0);
   // 敏感词数量
   const sensitiveWordsCount = ref(0);
+  // 敏感词数量
+  const sensitiveWordsCount = ref(0);
   // 自定义敏感词数量
   const costomWordsCount = ref(0);
 
@@ -51,4 +53,10 @@
 </script>
 
 
+<v-col cols="12">
+  <p class="text-body-2">本站提供的检测结果仅供用户参考，不构成任何法律意见或对广告合规性的保证，不能作为法律依据</p>
+  <p class="text-body-2">Copyright©2024 竹知 All Rights Reserved 豫ICP备17023123号-21</p>
+</v-col>
 ```
+
+本站提供的检测结果仅供用户参考，不构成任何法律意见或对广告合规性的保证，不能作为法律依据
