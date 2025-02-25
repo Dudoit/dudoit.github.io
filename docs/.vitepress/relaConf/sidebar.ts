@@ -335,6 +335,10 @@ export const sidebar: DefaultTheme.Sidebar = {
           link: '/develop/Interview/Offer/vue'
         },
         {
+          text: 'Vue-',
+          link: '/vue'
+        },
+        {
           text: 'Browser',
           link: '/develop/Interview/Offer/browser'
         },
