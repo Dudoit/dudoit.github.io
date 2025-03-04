@@ -396,7 +396,7 @@ Vue-router 允许开发者定义路由规则，将不同 URL 路径映射到对�
 优势：
 
 高效渲染：基于虚拟 DOM 机制，仅更新局部视图，无需重新加载页面。
-灵活导航：支持声明式（<router-link>）和编程式（router.push()）导航。
+灵活导航：支持声明式（`<router-link>`）和编程式（router.push()）导航。
 嵌套路由：通过 children 属性实现多层级路由结构，适用于复杂界面布局。
 
 路由模式
@@ -412,7 +412,7 @@ History 模式：基于 HTML5 History API，路径更简洁（如 [http://exampl
 
 核心实现原理
 响应式路由系统
-Vue-router 通过 Vue.util.defineReactive 将当前路由对象 _route 设为响应式，使 <router-view> 能动态渲染匹配组件。当 URL 变化时，触发路由匹配逻辑，更新 _route 并驱动视图变化。
+Vue-router 通过 Vue.util.defineReactive 将当前路由对象 _route 设为响应式，使 `<router-view>` 能动态渲染匹配组件。当 URL 变化时，触发路由匹配逻辑，更新 _route 并驱动视图变化。
 
 路由跳转机制
 Hash 模式：监听 hashchange 事件，解析 location.hash 获取路径。

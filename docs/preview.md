@@ -7,47 +7,48 @@
 优化方法：
 v-once：标记静态内容仅渲染一次
 Object.freeze()：冻结无需响应式变化的数据
-v-if 或 computed 控制渲染条件
+**v-if 或 computed 控制渲染条件**
 
-2. 合理拆分组件
+2. **合理拆分组件**
 问题：巨型组件会导致渲染树庞大，更新效率低。
 优化方法：
 按功能拆分小组件，利用局部作用域 (scoped CSS) 和独立状态。
 使用 异步组件 延迟加载非关键组件：
 
 二、状态管理优化
+
 1. 避免大型响应式对象
 问题：Vue 会递归遍历对象属性添加响应式，数据过大时初始化慢。
 优化方法：
 扁平化数据结构，避免嵌套过深。
 使用 Object.freeze() 或 markRaw()（Vue3）标记非响应式数据：
-2. 计算属性缓存
+2. **计算属性缓存**
 问题：频繁计算的复杂逻辑会导致重复执行。
 优化方法：
 利用计算属性的缓存特性，替代方法调用：
 
 三、列表渲染优化
-1. key 的合理使用
+1. **key 的合理使用**
 问题：错误的 key 会导致虚拟 DOM 比对低效。
 优化方法：
 使用唯一且稳定的 key（如数据ID），避免索引或随机值：
-2. 虚拟滚动 (Virtual Scrolling)
+2. **虚拟滚动** (Virtual Scrolling)
 问题：渲染超长列表（如 1000+ 项）会阻塞主线程。
 优化方法：
 使用 vue-virtual-scroller 或 vue-virtual-scroll-list 仅渲染可视区域元素：
 
 四、事件与资源管理
-1. 事件监听回收
+1. **事件监听回收**
 问题：未及时解绑事件可能导致内存泄漏。
 优化方法：
 在 beforeUnmount 或 destroyed 生命周期中移除监听器：
-2. 防抖与节流
+2. **防抖与节流**
 问题：高频事件（如 resize、scroll）触发过多计算。
 优化方法：
 使用 lodash 的 debounce 或 throttle：
 
 五、Vue 生态工具优化
-1. 路由懒加载
+1. **路由懒加载**
 问题：一次性加载所有路由代码拖慢首屏速度。
 优化方法：
 结合 Webpack 动态导入语法：
@@ -57,7 +58,7 @@ v-if 或 computed 控制渲染条件
 按功能拆分为模块（modules），减少单个模块的复杂度。
 
 六、构建优化（Webpack）
-1. 代码分割 (Code Splitting)
+1. **代码分割** (Code Splitting)
 ```js
 // vue.config.js
 configureWebpack: {
@@ -66,7 +67,7 @@ configureWebpack: {
   }
 }
 ```
-2. Tree Shaking
+2. **Tree Shaking**
 确保使用 ES Module 语法（import/export），移除未使用代码。
 
 七、进阶优化
@@ -94,12 +95,11 @@ configureWebpack: {
 合并CSS/JS文件、使用雪碧图和字体图标减少请求次数。
 通过代码分割按需加载资源，拆分大型应用为多个模块。
 利用预加载（Preload）和预取（Prefetch）提前加载关键资源。
-压缩与合并资源
 
+压缩与合并资源
 压缩HTML、CSS、JS代码，移除注释和空白字符，工具如Webpack、Terser等。
 启用Gzip压缩进一步减小文件体积。
 合并小文件（如多个CSS/JS合并为单一文件）以减少请求数量。
-
 
 图片优化
 选择合适的格式（如WebP替代JPEG/PNG）。
@@ -148,3 +148,15 @@ Web Workers
 将复杂计算任务转移至Web Workers，避免主线程阻塞。
 编译优化
 利用机器学习优化编译器中间代码（IR）生成，提升执行效率。
+
+
+## VUE 长列表优化
+
+1. 虚拟滚动（Virtual Scrolling）
+仅渲染可视区域内的列表项，动态计算滚动偏移量，复用 DOM 节点。使用 vue-virtual-scroller 或 vue3-virtual-scroll-list 等成熟库。
+
+2. 优化事件监听
+事件委托：在列表容器上统一监听事件，而非每个子项：
+
+1. 分页与懒加载
+滚动加载：监听滚动到底部事件，动态加载更多数据
